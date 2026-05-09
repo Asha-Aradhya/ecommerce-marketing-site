@@ -1,0 +1,60 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/layout/Navbar.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  langSwitchHref: string;
+  ogImage?: string;
+  hreflang?: { lang: string; href: string }[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  langSwitchHref,
+  ogImage = '/images/og-default.png',
+  hreflang = [],
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={Astro.currentLocale ?? 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary meta -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- hreflang alternates -->
+    {hreflang.map(({ lang, href }) => (
+      <link rel="alternate" hreflang={lang} href={href} />
+    ))}
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+  </head>
+  <body>
+    <Navbar langSwitchHref={langSwitchHref} />
+    <slot />
+  </body>
+</html>

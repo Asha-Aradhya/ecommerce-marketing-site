@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Brand — extracted from Hypernode SVG assets */
+  --color-navy:        #142E56;
+  --color-navy-dark:   #063B67;
+  --color-blue:        #3070AB;
+  --color-blue-mid:    #245793;
+  --color-blue-light:  #A2DDFB;
+  --color-blue-pale:   #C5E4FE;
+  --color-orange:      #FF7100;
+  --color-orange-dark: #EC7333;
+  --color-orange-light:#FFBE8B;
+
+  /* Neutrals */
+  --color-white:       #ffffff;
+  --color-gray-50:     #F9F9F9;
+  --color-gray-100:    #F3F3F3;
+  --color-gray-200:    #E5E7EB;
+  --color-gray-500:    #6B7280;
+  --color-gray-700:    #374151;
+  --color-gray-900:    #111827;
+
+  /* Typography */
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", monospace;
+
+  /* Spacing */
+  --spacing-section: 5rem;
+}
+
+/* Base resets */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-gray-900);
+  background-color: var(--color-white);
+  line-height: 1.6;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
