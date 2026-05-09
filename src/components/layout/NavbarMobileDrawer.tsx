@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
+
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 interface NavLink {
   label: string;
@@ -9,66 +12,73 @@ interface Props {
   navLinks: NavLink[];
   langSwitchHref: string;
   langSwitchLabel: string;
-  ctaLabel: string;
-  ctaHref: string;
 }
 
 export default function NavbarMobileDrawer({
   navLinks,
   langSwitchHref,
   langSwitchLabel,
-  ctaLabel,
-  ctaHref,
 }: Props) {
   const [open, setOpen] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState(0);
+
+  useIsomorphicLayoutEffect(() => {
+    const header = document.querySelector('header');
+    if (!header) return;
+    const measure = () => setHeaderHeight(header.getBoundingClientRect().height);
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   return (
     <div className="md:hidden">
-      {/* Hamburger button */}
       <button
-        onClick={() => setOpen(!open)}
+        type="button"
+        onClick={() => setOpen(prev => !prev)}
         aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
-        className="p-2 text-[#142E56] hover:text-[#FF7100] transition-colors"
+        aria-controls="mobile-menu"
+        className="p-2 text-navy-dark hover:text-orange transition-colors"
       >
         {open ? (
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         ) : (
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         )}
       </button>
 
-      {/* Drawer */}
       {open && (
-        <div className="fixed inset-x-0 top-[6.25rem] bottom-0 bg-white z-40 flex flex-col p-6 gap-1 border-t border-gray-100 shadow-lg">
-          {navLinks.map(link => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="text-base font-semibold text-[#142E56] py-3 border-b border-gray-100 hover:text-[#FF7100] transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
-
-          <div className="flex flex-col gap-3 pt-6">
+        <div
+          id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
+          className="fixed inset-x-0 bottom-0 bg-white z-40 border-t border-gray-100 shadow-lg flex flex-col p-6"
+          style={{ top: `${headerHeight}px` }}
+        >
+          <nav aria-label="Mobile navigation">
+            {navLinks.map(link => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="text-[0.9375rem] font-medium text-navy-dark py-3 border-b border-gray-100 hover:text-orange transition-colors block"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          <div className="pt-6">
             <a
               href={langSwitchHref}
-              className="text-sm font-semibold text-center px-4 py-2.5 rounded border border-gray-300 text-gray-600"
+              className="text-sm font-medium text-center block px-4 py-2.5 rounded border border-gray-300 text-navy-dark"
             >
               {langSwitchLabel}
-            </a>
-            <a
-              href={ctaHref}
-              onClick={() => setOpen(false)}
-              className="text-sm font-bold text-center px-6 py-3 rounded-full bg-[#FF7100] text-white hover:bg-[#EC7333] transition-colors"
-            >
-              {ctaLabel}
             </a>
           </div>
         </div>

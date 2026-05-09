@@ -1,25 +1,20 @@
 ---
 import { Image } from 'astro:assets';
-import logoImg from '../../assets/images/hypernode-logo.png';
+import logoImg from '@assets/images/hypernode-logo.png';
 import NavbarMobileDrawer from './NavbarMobileDrawer.tsx';
+import { useTranslations, type Lang } from '@/i18n/ui';
 
 interface Props {
   langSwitchHref: string;
 }
 
 const { langSwitchHref } = Astro.props;
-const locale = Astro.currentLocale ?? 'en';
-const isNL = locale === 'nl';
+const lang = (Astro.currentLocale ?? 'en') as Lang;
+const t = useTranslations(lang);
 
 const navLinks = [
-  {
-    label: isNL ? 'Abonnementen & prijzen' : 'Plans & prices',
-    href: isNL ? '/nl/prijzen/' : '/en/plans-and-prices/',
-  },
-  {
-    label: 'Changelog',
-    href: isNL ? '/nl/changelog/' : '/en/changelog/',
-  },
+  { label: t('nav.plans'),     href: t('nav.plans.href') },
+  { label: t('nav.changelog'), href: t('nav.changelog.href') },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -28,20 +23,20 @@ const currentPath = Astro.url.pathname;
 <header class="sticky top-0 z-50 bg-white shadow-sm">
   <!-- Topbar -->
   <div class="border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-end gap-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-1 pb-2.5 flex items-start justify-end">
       <a
         href={langSwitchHref}
-        class="text-xs font-semibold px-3 py-1 rounded border border-gray-300 text-gray-600 hover:border-[#FF7100] hover:text-[#FF7100] transition-colors"
+        class="text-xs font-semibold px-3 py-1 rounded border border-gray-300 text-[#063b67] hover:border-[#FF7100] hover:text-[#FF7100] transition-colors"
       >
-        {isNL ? 'English' : 'Dutch'}
+        {t('nav.langSwitch')}
       </a>
     </div>
   </div>
 
   <!-- Main navbar -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-    <!-- Logo -->
-    <a href={isNL ? '/nl/' : '/en/'} class="flex-shrink-0">
+    <!-- Logo (left) -->
+    <a href={t('nav.home.href')} class="flex-shrink-0">
       <Image
         src={logoImg}
         alt="Hypernode by teamblue"
@@ -50,16 +45,16 @@ const currentPath = Astro.url.pathname;
       />
     </a>
 
-    <!-- Desktop nav links -->
+    <!-- Desktop nav links (right) -->
     <nav class="hidden md:flex items-center gap-8" aria-label="Main navigation">
       {navLinks.map(link => (
         <a
           href={link.href}
           class:list={[
-            'text-sm font-semibold transition-colors',
+            'text-[0.9375rem] font-medium transition-colors',
             currentPath === link.href
               ? 'text-[#FF7100]'
-              : 'text-[#142E56] hover:text-[#FF7100]',
+              : 'text-[#063b67] hover:text-[#FF7100]',
           ]}
         >
           {link.label}
@@ -67,22 +62,12 @@ const currentPath = Astro.url.pathname;
       ))}
     </nav>
 
-    <!-- Desktop CTA -->
-    <a
-      href={isNL ? '/nl/contact/' : '/en/contact/'}
-      class="hidden md:inline-flex items-center text-sm font-bold px-6 py-2.5 rounded-full bg-[#FF7100] text-white hover:bg-[#EC7333] transition-colors"
-    >
-      {isNL ? 'Gratis hostingadvies' : 'Free hosting consult'}
-    </a>
-
     <!-- Mobile drawer island -->
     <NavbarMobileDrawer
       client:load
       navLinks={navLinks}
       langSwitchHref={langSwitchHref}
-      langSwitchLabel={isNL ? 'English' : 'Dutch'}
-      ctaLabel={isNL ? 'Gratis hostingadvies' : 'Free hosting consult'}
-      ctaHref={isNL ? '/nl/contact/' : '/en/contact/'}
+      langSwitchLabel={t('nav.langSwitch')}
     />
   </div>
 </header>

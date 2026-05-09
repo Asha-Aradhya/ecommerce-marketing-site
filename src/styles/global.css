@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand — extracted from Hypernode SVG assets */
+  /* Brand */
   --color-navy:        #142E56;
   --color-navy-dark:   #063B67;
   --color-blue:        #3070AB;
@@ -30,32 +30,29 @@
   --spacing-section: 5rem;
 }
 
-/* Base resets */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-body {
-  font-family: var(--font-sans);
-  color: var(--color-gray-900);
-  background-color: var(--color-white);
-  line-height: 1.6;
-}
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-gray-900);
+    background-color: var(--color-white);
+    line-height: 1.6;
+  }
 
-img,
-video {
-  max-width: 100%;
-  height: auto;
-}
-
-a {
-  color: inherit;
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
 }

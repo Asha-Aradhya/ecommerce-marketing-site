@@ -13,6 +13,11 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@assets': '/src/assets',
+      },
+    },
   },
   i18n: {
     defaultLocale: 'en',
