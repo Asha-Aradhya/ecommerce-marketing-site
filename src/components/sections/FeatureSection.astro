@@ -1,0 +1,68 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import Button from '@/components/ui/Button.astro';
+
+// Astro's image() schema returns ImageMetadata for raster files
+// and an Astro component (callable) for SVG files. Support both.
+type ImageInput = ImageMetadata | ((props: Record<string, unknown>) => unknown);
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  image: ImageInput;
+  imageAlt: string;
+  imageSide?: 'left' | 'right';
+  ctaLabel?: string;
+  ctaHref?: string;
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  image,
+  imageAlt,
+  imageSide = 'right',
+  ctaLabel,
+  ctaHref,
+  class: className,
+} = Astro.props;
+
+const flexDirection =
+  imageSide === 'left' ? 'md:flex-row-reverse' : 'md:flex-row';
+
+const SvgComponent = typeof image === 'function' ? image : null;
+---
+
+<section class:list={['py-20 md:py-28', className]}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class:list={['flex flex-col gap-12 md:gap-16 items-center', flexDirection]}>
+      <div class="flex-1">
+        <h2 class="text-3xl md:text-5xl font-bold text-navy-dark leading-tight">
+          {title}
+        </h2>
+        {subtitle && (
+          <p class="mt-4 text-orange uppercase tracking-widest font-bold text-sm">
+            {subtitle}
+          </p>
+        )}
+        <div class="mt-6 space-y-4 text-navy-dark leading-relaxed [&_a]:text-orange [&_a]:hover:text-orange-dark [&_a]:transition-colors">
+          <slot />
+        </div>
+        {ctaLabel && ctaHref && (
+          <div class="mt-8">
+            <Button variant="primary" href={ctaHref}>{ctaLabel}</Button>
+          </div>
+        )}
+      </div>
+      <div class="flex-1 flex justify-center">
+        {SvgComponent ? (
+          <SvgComponent class="max-w-md w-full h-auto" role="img" aria-label={imageAlt} />
+        ) : (
+          <Image src={image as ImageMetadata} alt={imageAlt} class="max-w-md w-full h-auto" />
+        )}
+      </div>
+    </div>
+  </div>
+</section>

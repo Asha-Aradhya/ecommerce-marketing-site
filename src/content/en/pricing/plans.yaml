@@ -1,0 +1,303 @@
+# Cloud — Combell OpenStack (Falcon series)
+- id: falcon-xs
+  family: cloud
+  hardwareLine: combell-openstack
+  name: Falcon XS
+  cpus: 2
+  storageGb: 150
+  ramGb: 4
+  prices:
+    production: { monthlyEur: 129, monthlyGbp: 109, dailyEur: 4.30, dailyGbp: 3.65 }
+    development: { monthlyEur: 98, monthlyGbp: 83, dailyEur: 3.27, dailyGbp: 2.77 }
+  order: 1
+
+- id: falcon-s
+  family: cloud
+  hardwareLine: combell-openstack
+  name: Falcon S
+  cpus: 2
+  storageGb: 150
+  ramGb: 8
+  prices:
+    production: { monthlyEur: 181, monthlyGbp: 154, dailyEur: 6.04, dailyGbp: 5.13 }
+    development: { monthlyEur: 129, monthlyGbp: 109, dailyEur: 4.30, dailyGbp: 3.65 }
+  order: 2
+
+- id: falcon-m
+  family: cloud
+  hardwareLine: combell-openstack
+  name: Falcon M
+  cpus: 3
+  storageGb: 150
+  ramGb: 16
+  prices:
+    production: { monthlyEur: 237, monthlyGbp: 201, dailyEur: 7.90, dailyGbp: 6.71 }
+    development: { monthlyEur: 150, monthlyGbp: 127, dailyEur: 5.00, dailyGbp: 4.25 }
+  isMostPopular: true
+  order: 3
+
+- id: falcon-l
+  family: cloud
+  hardwareLine: combell-openstack
+  name: Falcon L
+  cpus: 5
+  storageGb: 150
+  ramGb: 24
+  prices:
+    production: { monthlyEur: 388, monthlyGbp: 330, dailyEur: 12.93, dailyGbp: 10.99 }
+    development: { monthlyEur: 258, monthlyGbp: 219, dailyEur: 8.60, dailyGbp: 7.31 }
+  order: 4
+
+- id: falcon-xl
+  family: cloud
+  hardwareLine: combell-openstack
+  name: Falcon XL
+  cpus: 8
+  storageGb: 300
+  ramGb: 32
+  prices:
+    production: { monthlyEur: 703, monthlyGbp: 597, dailyEur: 23.43, dailyGbp: 19.92 }
+    development: { monthlyEur: 496, monthlyGbp: 421, dailyEur: 16.53, dailyGbp: 14.05 }
+  order: 5
+
+- id: falcon-2xl
+  family: cloud
+  hardwareLine: combell-openstack
+  name: Falcon 2XL
+  cpus: 12
+  storageGb: 960
+  ramGb: 48
+  prices:
+    production: { monthlyEur: 1082, monthlyGbp: 920, dailyEur: 36.07, dailyGbp: 30.66 }
+    development: { monthlyEur: 812, monthlyGbp: 690, dailyEur: 27.07, dailyGbp: 23.01 }
+  hasNearZeroDowntime: true
+  order: 6
+
+- id: falcon-3xl
+  family: cloud
+  hardwareLine: combell-openstack
+  name: Falcon 3XL
+  cpus: 16
+  storageGb: 960
+  ramGb: 64
+  prices:
+    production: { monthlyEur: 1589, monthlyGbp: 1351, dailyEur: 52.97, dailyGbp: 45.03 }
+    development: { monthlyEur: 1144, monthlyGbp: 972, dailyEur: 38.13, dailyGbp: 32.41 }
+  hasNearZeroDowntime: true
+  order: 7
+
+- id: falcon-4xl
+  family: cloud
+  hardwareLine: combell-openstack
+  name: Falcon 4XL
+  cpus: 18
+  storageGb: 960
+  ramGb: 80
+  prices:
+    production: { monthlyEur: 2318, monthlyGbp: 1970, dailyEur: 77.27, dailyGbp: 65.68 }
+    development: { monthlyEur: 1838, monthlyGbp: 1562, dailyEur: 61.27, dailyGbp: 52.08 }
+  hasNearZeroDowntime: true
+  order: 8
+
+- id: falcon-5xl
+  family: cloud
+  hardwareLine: combell-openstack
+  name: Falcon 5XL
+  cpus: 20
+  storageGb: 960
+  ramGb: 96
+  prices:
+    production: { monthlyEur: 3462, monthlyGbp: 2942, dailyEur: 115.40, dailyGbp: 98.07 }
+    development: { monthlyEur: 2689, monthlyGbp: 2285, dailyEur: 89.63, dailyGbp: 76.18 }
+  hasNearZeroDowntime: true
+  order: 9
+
+# Cloud — Amazon Web Services (Eagle series)
+- id: eagle-m
+  family: cloud
+  hardwareLine: aws
+  name: Eagle M
+  cpus: 4
+  storageGb: 250
+  ramGb: 16
+  prices:
+    production: { monthlyEur: 672, monthlyGbp: 571, dailyEur: 22.40, dailyGbp: 19.04 }
+    development: { monthlyEur: 551, monthlyGbp: 468, dailyEur: 18.37, dailyGbp: 15.61 }
+  order: 1
+
+- id: eagle-l
+  family: cloud
+  hardwareLine: aws
+  name: Eagle L
+  cpus: 8
+  storageGb: 500
+  ramGb: 32
+  prices:
+    production: { monthlyEur: 1221, monthlyGbp: 1037, dailyEur: 40.70, dailyGbp: 34.59 }
+    development: { monthlyEur: 1014, monthlyGbp: 861, dailyEur: 33.80, dailyGbp: 28.73 }
+  order: 2
+
+- id: eagle-xl
+  family: cloud
+  hardwareLine: aws
+  name: Eagle XL
+  cpus: 16
+  storageGb: 750
+  ramGb: 64
+  prices:
+    production: { monthlyEur: 2132, monthlyGbp: 1812, dailyEur: 71.07, dailyGbp: 60.41 }
+    development: { monthlyEur: 1749, monthlyGbp: 1486, dailyEur: 58.30, dailyGbp: 49.55 }
+  isMostPopular: true
+  order: 3
+
+- id: eagle-2xl
+  family: cloud
+  hardwareLine: aws
+  name: Eagle 2XL
+  cpus: 32
+  storageGb: 1000
+  ramGb: 128
+  prices:
+    production: { monthlyEur: 3891, monthlyGbp: 3307, dailyEur: 129.70, dailyGbp: 110.25 }
+    development: { monthlyEur: 3322, monthlyGbp: 2823, dailyEur: 110.73, dailyGbp: 94.12 }
+  hasNearZeroDowntime: true
+  order: 4
+
+- id: eagle-3xl
+  family: cloud
+  hardwareLine: aws
+  name: Eagle 3XL
+  cpus: 48
+  storageGb: 1000
+  ramGb: 192
+  prices:
+    production: { monthlyEur: 5889, monthlyGbp: 5005, dailyEur: 196.30, dailyGbp: 166.86 }
+    development: { monthlyEur: 5112, monthlyGbp: 4345, dailyEur: 170.40, dailyGbp: 144.84 }
+  hasNearZeroDowntime: true
+  order: 5
+
+- id: eagle-4xl
+  family: cloud
+  hardwareLine: aws
+  name: Eagle 4XL
+  cpus: 64
+  storageGb: 1000
+  ramGb: 256
+  prices:
+    production: { monthlyEur: 9369, monthlyGbp: 7963, dailyEur: 312.30, dailyGbp: 265.46 }
+    development: { monthlyEur: 7959, monthlyGbp: 6765, dailyEur: 265.30, dailyGbp: 225.51 }
+  hasNearZeroDowntime: true
+  order: 6
+
+- id: eagle-5xl
+  family: cloud
+  hardwareLine: aws
+  name: Eagle 5XL
+  cpus: 96
+  storageGb: 1000
+  ramGb: 384
+  prices:
+    production: { monthlyEur: 13113, monthlyGbp: 11146, dailyEur: 437.10, dailyGbp: 371.54 }
+    development: { monthlyEur: 11384, monthlyGbp: 9676, dailyEur: 379.47, dailyGbp: 322.55 }
+  hasNearZeroDowntime: true
+  order: 7
+
+- id: eagle-6xl
+  family: cloud
+  hardwareLine: aws
+  name: Eagle 6XL
+  cpus: 128
+  storageGb: 1000
+  ramGb: 512
+  prices:
+    production: { monthlyEur: 25689, monthlyGbp: 21835, dailyEur: 856.30, dailyGbp: 727.86 }
+    development: { monthlyEur: 21839, monthlyGbp: 18563, dailyEur: 727.97, dailyGbp: 618.78 }
+  hasNearZeroDowntime: true
+  order: 8
+
+- id: eagle-7xl
+  family: cloud
+  hardwareLine: aws
+  name: Eagle 7XL
+  cpus: 192
+  storageGb: 1000
+  ramGb: 768
+  prices:
+    production: { monthlyEur: 33409, monthlyGbp: 28398, dailyEur: 1113.63, dailyGbp: 946.59 }
+    development: { monthlyEur: 28379, monthlyGbp: 24122, dailyEur: 945.97, dailyGbp: 804.07 }
+  hasNearZeroDowntime: true
+  order: 9
+
+# Dedicated — Jackal Enterprise
+- id: jackal-s-enterprise
+  family: dedicated
+  hardwareLine: jackal-enterprise
+  name: Jackal S
+  cpus: 36
+  storageGb: 960
+  ramGb: 128
+  prices:
+    production: { monthlyEur: 1439, monthlyGbp: 1223, yearlyEur: 14678, yearlyGbp: 12476 }
+    development: { monthlyEur: 1080, monthlyGbp: 918, yearlyEur: 11016, yearlyGbp: 9364 }
+  order: 1
+
+- id: jackal-m-enterprise
+  family: dedicated
+  hardwareLine: jackal-enterprise
+  name: Jackal M
+  cpus: 96
+  storageGb: 960
+  ramGb: 128
+  prices:
+    production: { monthlyEur: 1925, monthlyGbp: 1636, yearlyEur: 19635, yearlyGbp: 16690 }
+    development: { monthlyEur: 1444, monthlyGbp: 1227, yearlyEur: 14729, yearlyGbp: 12520 }
+  order: 2
+
+- id: jackal-l-enterprise
+  family: dedicated
+  hardwareLine: jackal-enterprise
+  name: Jackal L
+  cpus: 96
+  storageGb: 960
+  ramGb: 256
+  prices:
+    production: { monthlyEur: 2515, monthlyGbp: 2138, yearlyEur: 25653, yearlyGbp: 21805 }
+    development: { monthlyEur: 1886, monthlyGbp: 1603, yearlyEur: 19237, yearlyGbp: 16352 }
+  order: 3
+
+# Dedicated — Jackal (standard)
+- id: jackal-s
+  family: dedicated
+  hardwareLine: jackal
+  name: Jackal S
+  cpus: 12
+  storageGb: 960
+  ramGb: 64
+  prices:
+    production: { monthlyEur: 637, monthlyGbp: 541, yearlyEur: 6497, yearlyGbp: 5522 }
+    development: { monthlyEur: 334, monthlyGbp: 284, yearlyEur: 3407, yearlyGbp: 2896 }
+  order: 1
+
+- id: jackal-m
+  family: dedicated
+  hardwareLine: jackal
+  name: Jackal M
+  cpus: 16
+  storageGb: 960
+  ramGb: 64
+  prices:
+    production: { monthlyEur: 807, monthlyGbp: 686, yearlyEur: 8231, yearlyGbp: 6996 }
+    development: { monthlyEur: 485, monthlyGbp: 412, yearlyEur: 4947, yearlyGbp: 4205 }
+  order: 2
+
+- id: jackal-l
+  family: dedicated
+  hardwareLine: jackal
+  name: Jackal L
+  cpus: 24
+  storageGb: 960
+  ramGb: 128
+  prices:
+    production: { monthlyEur: 1177, monthlyGbp: 1000, yearlyEur: 12005, yearlyGbp: 10204 }
+    development: { monthlyEur: 651, monthlyGbp: 553, yearlyEur: 6640, yearlyGbp: 5644 }
+  order: 3

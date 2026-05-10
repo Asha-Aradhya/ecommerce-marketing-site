@@ -1,0 +1,55 @@
+---
+import type { ImageMetadata } from 'astro';
+import FeatureCard from './FeatureCard.astro';
+import Button from '@/components/ui/Button.astro';
+
+type IconInput = ImageMetadata | ((props: Record<string, unknown>) => unknown);
+
+interface Card {
+  icon: IconInput;
+  iconAlt: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  cards: Card[];
+  ctaLabel?: string;
+  ctaHref?: string;
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  cards,
+  ctaLabel,
+  ctaHref,
+  class: className,
+} = Astro.props;
+---
+
+<section class:list={['py-20 md:py-28', className]}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-6xl mx-auto mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-5xl font-bold text-navy-dark leading-tight">
+        {title}
+      </h2>
+      {subtitle && (
+        <p class="mt-4 text-base md:text-lg text-navy-dark">
+          {subtitle}
+        </p>
+      )}
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      {cards.map((card) => <FeatureCard {...card} />)}
+    </div>
+    {ctaLabel && ctaHref && (
+      <div class="mt-12 md:mt-16 flex justify-center">
+        <Button variant="primary" href={ctaHref}>{ctaLabel}</Button>
+      </div>
+    )}
+  </div>
+</section>

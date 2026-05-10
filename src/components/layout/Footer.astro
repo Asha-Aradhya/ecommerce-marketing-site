@@ -1,0 +1,224 @@
+---
+import { Image } from 'astro:assets';
+import logoImg from '@assets/images/hypernode-logo.png';
+import FooterTeamblue from './FooterTeamblue.tsx';
+
+const linkColumns = [
+  {
+    heading: 'Applications',
+    links: [
+      { label: 'Magento', href: '/en/coming-soon/' },
+      { label: 'Shopware', href: '/en/coming-soon/' },
+      { label: 'WooCommerce', href: '/en/coming-soon/' },
+      { label: 'Adobe Commerce', href: '/en/coming-soon/' },
+      { label: 'Laravel', href: '/en/coming-soon/' },
+      { label: 'Pimcore', href: '/en/coming-soon/' },
+      { label: 'Drupal', href: '/en/coming-soon/' },
+    ],
+  },
+  {
+    heading: 'Services',
+    links: [
+      { label: 'Hosting', href: '/en/coming-soon/' },
+      { label: 'SSL', href: '/en/coming-soon/' },
+      { label: 'MageReport', href: '/en/coming-soon/' },
+      { label: 'PHP extended support', href: '/en/coming-soon/' },
+    ],
+  },
+  {
+    heading: 'Support & Resources',
+    links: [
+      { label: 'Emergency support', href: '/en/coming-soon/' },
+      { label: 'Support', href: '/en/coming-soon/' },
+      { label: 'Docs', href: '/en/coming-soon/' },
+      { label: 'Changelog', href: '/en/coming-soon/' },
+      { label: 'Hypernode status', href: '/en/coming-soon/' },
+      { label: 'Uservoice', href: '/en/coming-soon/' },
+    ],
+  },
+  {
+    heading: 'Hypernode Partners',
+    links: [
+      { label: 'Our partners', href: '/en/coming-soon/' },
+      { label: 'Hyva Themes', href: '/en/coming-soon/' },
+      { label: 'For agencies', href: '/en/coming-soon/' },
+    ],
+  },
+  {
+    heading: 'About Hypernode',
+    links: [
+      { label: 'Contact', href: '/en/coming-soon/' },
+      { label: 'Team & careers', href: '/en/coming-soon/' },
+      { label: 'Press', href: '/en/coming-soon/' },
+      { label: 'Social Responsibility', href: '/en/coming-soon/' },
+      { label: '24h Beta Group', href: '/en/coming-soon/' },
+      { label: 'Blog', href: '/en/coming-soon/' },
+      { label: 'Report abuse', href: '/en/coming-soon/' },
+      { label: 'Whistleblower form', href: '/en/coming-soon/' },
+      { label: 'Newsletter', href: '/en/coming-soon/' },
+    ],
+  },
+];
+
+const latestReleases = [
+  { label: 'Release 11003: DirtyPipe Mitigation...', href: '/en/coming-soon/' },
+  { label: 'Release 11002: CapyTrail (CVE-2026-3...)', href: '/en/coming-soon/' },
+  { label: 'Hypernode Insights: Magento Cross...', href: '/en/coming-soon/' },
+  { label: 'Release 10770: MySQL Config Profile...', href: '/en/coming-soon/' },
+  { label: 'Hypernode Deploy v6.0', href: '/en/coming-soon/' },
+];
+
+const latestBlogs = [
+  { label: 'DirtyPipe Mitigations on Hypernode', href: '/en/coming-soon/' },
+  { label: '6 Questions to Ask a Secure E-Commerce Hosting Pro...', href: '/en/coming-soon/' },
+  { label: 'Why E-Commerce Security is Never "Finished"...', href: '/en/coming-soon/' },
+  { label: 'How to Check if Your Webshop is Actually Secure...', href: '/en/coming-soon/' },
+  { label: 'Mageport Attack: Why File Integrity Monitoring Mat...', href: '/en/coming-soon/' },
+];
+
+const legalLinks = [
+  { label: 'Privacy Policy', href: '/en/coming-soon/' },
+  { label: 'Acceptable Use Policy', href: '/en/coming-soon/' },
+  { label: 'Terms & Conditions', href: '/en/coming-soon/' },
+  { label: 'Responsible Disclosure Policy', href: '/en/coming-soon/' },
+  { label: 'Cookie Policy', href: '/en/coming-soon/' },
+];
+
+const socialLinks = [
+  {
+    label: 'Twitter',
+    href: '/en/coming-soon/',
+    path: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z',
+  },
+  {
+    label: 'Facebook',
+    href: '/en/coming-soon/',
+    path: 'M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z',
+  },
+  {
+    label: 'LinkedIn',
+    href: '/en/coming-soon/',
+    path: 'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.063 2.063 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z',
+  },
+  {
+    label: 'GitHub',
+    href: '/en/coming-soon/',
+    path: 'M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12',
+  },
+];
+---
+
+<footer class="bg-[#113156] text-white [&_a]:no-underline">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
+      <div class="lg:col-span-1">
+        <Image
+          src={logoImg}
+          alt="Hypernode by teamblue"
+          height={36}
+          class="h-9 w-auto brightness-0 invert mb-6"
+        />
+        <ul class="flex gap-3">
+          {socialLinks.map((social) => (
+            <li>
+              <a
+                href={social.href}
+                aria-label={social.label}
+                class="w-9 h-9 flex items-center justify-center rounded-full border border-white/20 text-white/80 hover:text-white hover:border-white/60 transition-colors"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d={social.path} />
+                </svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="lg:col-span-5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        {linkColumns.map((column) => (
+          <div>
+            <h3 class="text-orange uppercase tracking-wide font-bold text-xs mb-4">
+              {column.heading}
+            </h3>
+            <ul class="space-y-2">
+              {column.links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="text-white hover:text-orange text-sm transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 pt-8 border-t border-white/10">
+      <div>
+        <h3 class="text-white font-bold text-base mb-4">Latest releases</h3>
+        <ul class="space-y-2">
+          {latestReleases.map((item) => (
+            <li>
+              <a href={item.href} class="text-white hover:text-orange text-sm transition-colors underline! underline-offset-2">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-bold text-base mb-4">Latest blogs</h3>
+        <ul class="space-y-2">
+          {latestBlogs.map((item) => (
+            <li>
+              <a href={item.href} class="text-white hover:text-orange text-sm transition-colors underline! underline-offset-2">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-bold text-base mb-4">Need help?</h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href="mailto:support@hypernode.com" class="text-orange hover:text-orange-dark transition-colors">
+              support@hypernode.com
+            </a>
+          </li>
+          <li class="text-white">+31 20 36 081274</li>
+          <li class="text-white">+31 20 521 6226</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-white/10 text-center text-sm space-y-3">
+      <p class="text-white">Copyright © 2026 - Hypernode</p>
+      <ul class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-white/70">
+        {legalLinks.map((link, index) => (
+          <>
+            {index > 0 && <li class="text-white/40" aria-hidden="true">|</li>}
+            <li>
+              <a href={link.href} class="hover:text-white transition-colors">
+                {link.label}
+              </a>
+            </li>
+          </>
+        ))}
+      </ul>
+      <p class="text-white/70">
+        Support: +31 20 521 6226 | +44 20 3608 5874 | support@hypernode.com
+      </p>
+      <p class="text-white/70">
+        KvK number: 06090748 | VAT number: NL821888080B01
+      </p>
+    </div>
+  </div>
+
+  <FooterTeamblue client:visible />
+</footer>

@@ -1,0 +1,104 @@
+---
+import type { ImageMetadata } from 'astro';
+import TestimonialCard from './TestimonialCard.astro';
+
+type ImageInput = ImageMetadata | ((props: Record<string, unknown>) => unknown);
+
+interface Testimonial {
+  logo: ImageInput;
+  logoAlt: string;
+  quote: string;
+  avatar: ImageInput;
+  avatarAlt: string;
+  name: string;
+  role: string;
+}
+
+interface Props {
+  title: string;
+  testimonials: Testimonial[];
+  class?: string;
+}
+
+const { title, testimonials, class: className } = Astro.props;
+---
+
+<section class:list={['bg-navy py-20 md:py-28', className]}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl md:text-5xl font-bold text-white text-center mb-12 md:mb-16">
+      {title}
+    </h2>
+
+    <div class="flex items-center gap-2 md:gap-4">
+      <button
+        type="button"
+        id="testimonials-prev"
+        aria-label="Previous testimonial"
+        class="shrink-0 text-white/40 hover:text-white/80 transition-colors p-2 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-white/40"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <div
+        id="testimonials-scroll"
+        class="overflow-x-auto snap-x snap-mandatory scroll-smooth flex gap-6 flex-1 scrollbar-hide"
+      >
+        {testimonials.map((testimonial) => <TestimonialCard {...testimonial} />)}
+      </div>
+
+      <button
+        type="button"
+        id="testimonials-next"
+        aria-label="Next testimonial"
+        class="shrink-0 text-white/40 hover:text-white/80 transition-colors p-2 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-white/40"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    scrollbar-width: none;
+  }
+</style>
+
+<script>
+  const scrollContainer = document.getElementById('testimonials-scroll');
+  const prevButton = document.getElementById('testimonials-prev') as HTMLButtonElement | null;
+  const nextButton = document.getElementById('testimonials-next') as HTMLButtonElement | null;
+
+  if (scrollContainer && prevButton && nextButton) {
+    const getCardWidth = () => {
+      const firstCard = scrollContainer.querySelector('[data-testimonial-card]') as HTMLElement | null;
+      const gap = 24;
+      return firstCard ? firstCard.clientWidth + gap : 320;
+    };
+
+    const updateArrowStates = () => {
+      const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+      prevButton.disabled = scrollContainer.scrollLeft <= 0;
+      nextButton.disabled = scrollContainer.scrollLeft >= maxScrollLeft - 1;
+    };
+
+    prevButton.addEventListener('click', () => {
+      scrollContainer.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
+    });
+
+    nextButton.addEventListener('click', () => {
+      scrollContainer.scrollBy({ left: getCardWidth(), behavior: 'smooth' });
+    });
+
+    scrollContainer.addEventListener('scroll', updateArrowStates);
+    window.addEventListener('resize', updateArrowStates);
+    updateArrowStates();
+  }
+</script>

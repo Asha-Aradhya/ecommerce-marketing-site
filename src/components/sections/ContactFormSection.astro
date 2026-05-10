@@ -1,0 +1,56 @@
+---
+import { useTranslations, type Lang } from '@/i18n/ui';
+import ContactForm from './ContactForm.tsx';
+
+const lang = (Astro.currentLocale ?? 'en') as Lang;
+const t = useTranslations(lang);
+
+const labels = {
+  firstName: t('contactForm.firstName'),
+  lastName: t('contactForm.lastName'),
+  company: t('contactForm.company'),
+  website: t('contactForm.website'),
+  phone: t('contactForm.phone'),
+  email: t('contactForm.email'),
+  message: t('contactForm.message'),
+  newsletterBefore: t('contactForm.newsletterBefore'),
+  newsletterLinkLabel: t('contactForm.newsletterLinkLabel'),
+  newsletterAfter: t('contactForm.newsletterAfter'),
+  privacyConsentBefore: t('contactForm.privacyConsentBefore'),
+  privacyPolicyLabel: t('contactForm.privacyPolicyLabel'),
+  privacyConsentAfter: t('contactForm.privacyConsentAfter'),
+  submit: t('contactForm.submit'),
+  requiredError: t('contactForm.errors.required'),
+  emailError: t('contactForm.errors.email'),
+  privacyError: t('contactForm.errors.privacy'),
+  captchaError: t('contactForm.errors.captcha'),
+  allFieldsError: t('contactForm.errors.allFields'),
+  emailSuggestionPrefix: t('contactForm.errors.emailSuggestion'),
+};
+---
+
+<section class="py-20 md:py-28">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 md:mb-16">
+    <h2 class="text-3xl md:text-5xl font-bold text-navy-dark leading-tight">
+      {t('contactForm.title')}
+    </h2>
+    <p class="mt-4 text-base md:text-lg text-gray-600">
+      {t('contactForm.subtitle')}
+    </p>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <ContactForm
+      client:visible
+      labels={labels}
+      comingSoonHref={t('nav.comingSoon.href')}
+    />
+  </div>
+</section>
+
+<script
+  is:inline
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer
+></script>

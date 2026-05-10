@@ -1,0 +1,41 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+type ImageInput = ImageMetadata | ((props: Record<string, unknown>) => unknown);
+
+interface Logo {
+  image: ImageInput;
+  alt: string;
+}
+
+interface Props {
+  logos: Logo[];
+  class?: string;
+}
+
+const { logos, class: className } = Astro.props;
+---
+
+<section class:list={['bg-navy-dark py-10 md:py-12', className]}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap items-center justify-around gap-8 md:gap-12">
+      {logos.map((logo) => {
+        const SvgComponent = typeof logo.image === 'function' ? logo.image : null;
+        return SvgComponent ? (
+          <SvgComponent
+            class="h-10 md:h-12 w-auto max-w-[200px] md:max-w-[220px] object-contain brightness-0 invert opacity-90"
+            role="img"
+            aria-label={logo.alt}
+          />
+        ) : (
+          <Image
+            src={logo.image as ImageMetadata}
+            alt={logo.alt}
+            class="h-10 md:h-12 w-auto max-w-[200px] md:max-w-[220px] object-contain brightness-0 invert opacity-90"
+          />
+        );
+      })}
+    </div>
+  </div>
+</section>

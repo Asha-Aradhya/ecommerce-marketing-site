@@ -1,0 +1,23 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'primary' | 'secondary';
+
+interface Props extends Omit<HTMLAttributes<'a'>, 'class'> {
+  variant?: Variant;
+  class?: string;
+}
+
+const { variant = 'primary', class: className, ...rest } = Astro.props;
+
+const variantClasses: Record<Variant, string> = {
+  primary:
+    'inline-block bg-orange hover:bg-orange-dark text-white font-semibold rounded-full px-7 py-3 transition-colors',
+  secondary:
+    'inline-block text-white font-medium hover:underline',
+};
+---
+
+<a class:list={[variantClasses[variant], className]} {...rest}>
+  <slot />
+</a>

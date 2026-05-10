@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import PricingTabs from '@/components/pricing/PricingTabs';
+import Faq from '@/components/pricing/Faq.astro';
+
+const planEntries = await getCollection('pricing-plans-en');
+const plans = planEntries.map((entry) => ({
+  ...entry.data,
+  id: entry.id,
+}));
+---
+
+<BaseLayout
+  title="Pricing Table | Hypernode"
+  description="Explore Our Tailored Hosting Solutions: Dedicated and Cloud Plans for Every Need"
+>
+  <main>
+    <section class="pt-12 md:pt-16 pb-8 text-center max-w-3xl mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-bold text-navy-dark mb-4">Pricing Table</h1>
+      <p class="text-navy-dark text-base md:text-lg">
+        Explore Our Tailored Hosting Solutions: Dedicated and Cloud Plans for Every Need
+      </p>
+      <p class="text-navy-dark text-sm mt-3 italic">All prices are excluding VAT.</p>
+    </section>
+
+    <div class="pb-16">
+      <PricingTabs client:load plans={plans} />
+    </div>
+
+    <Faq />
+  </main>
+</BaseLayout>

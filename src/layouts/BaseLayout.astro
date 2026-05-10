@@ -1,28 +1,39 @@
 ---
 import '../styles/global.css';
 import Navbar from '../components/layout/Navbar.astro';
+import Footer from '../components/layout/Footer.astro';
+import { ui, type Lang } from '@/i18n/ui';
 
 interface Props {
   title: string;
   description: string;
-  canonical: string;
-  langSwitchHref: string;
   ogImage?: string;
-  hreflang?: { lang: string; href: string }[];
 }
 
 const {
   title,
   description,
-  canonical,
-  langSwitchHref,
   ogImage = '/images/og-default.png',
-  hreflang = [],
 } = Astro.props;
+
+const lang = (Astro.currentLocale ?? 'en') as Lang;
+const allLocales = Object.keys(ui) as Lang[];
+const otherLocale = allLocales.find(targetLocale => targetLocale !== lang) ?? 'en';
+
+const currentPath = Astro.url.pathname;
+const swapLocale = (path: string, targetLocale: string) =>
+  path.replace(/^\/[a-z]{2}\//, `/${targetLocale}/`);
+
+const canonical = new URL(currentPath, Astro.site).href;
+const langSwitchHref = swapLocale(currentPath, otherLocale);
+const hreflang = allLocales.map(targetLocale => ({
+  lang: targetLocale,
+  href: new URL(swapLocale(currentPath, targetLocale), Astro.site).href,
+}));
 ---
 
 <!doctype html>
-<html lang={Astro.currentLocale ?? 'en'}>
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -46,8 +57,8 @@ const {
     <meta name="twitter:image" content={ogImage} />
 
     <!-- hreflang alternates -->
-    {hreflang.map(({ lang, href }) => (
-      <link rel="alternate" hreflang={lang} href={href} />
+    {hreflang.map(({ lang: alternateLang, href }) => (
+      <link rel="alternate" hreflang={alternateLang} href={href} />
     ))}
 
     <!-- Favicon -->
@@ -56,5 +67,6 @@ const {
   <body>
     <Navbar langSwitchHref={langSwitchHref} />
     <slot />
+    <Footer />
   </body>
 </html>

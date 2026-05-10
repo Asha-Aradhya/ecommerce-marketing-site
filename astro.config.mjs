@@ -5,7 +5,10 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://ecommerce-marketing-site.vercel.app',
+  server: {
+    port: 3000,
+  },
   integrations: [
     react(),
     mdx(),

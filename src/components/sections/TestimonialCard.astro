@@ -1,0 +1,55 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+type ImageInput = ImageMetadata | ((props: Record<string, unknown>) => unknown);
+
+interface Props {
+  logo: ImageInput;
+  logoAlt: string;
+  quote: string;
+  avatar: ImageInput;
+  avatarAlt: string;
+  name: string;
+  role: string;
+}
+
+const { logo, logoAlt, quote, avatar, avatarAlt, name, role } = Astro.props;
+
+const LogoSvgComponent = typeof logo === 'function' ? logo : null;
+---
+
+<div
+  data-testimonial-card
+  class="snap-start shrink-0 w-[300px] md:w-[340px] bg-navy-dark rounded-2xl p-8 flex flex-col items-center text-center"
+>
+  <div class="mb-8 h-10 flex items-center">
+    {LogoSvgComponent ? (
+      <LogoSvgComponent
+        class="h-full w-auto max-w-[140px] object-contain"
+        role="img"
+        aria-label={logoAlt}
+      />
+    ) : (
+      <Image
+        src={logo as ImageMetadata}
+        alt={logoAlt}
+        class="h-full w-auto max-w-[140px] object-contain"
+      />
+    )}
+  </div>
+
+  <p class="text-white/90 text-sm md:text-base leading-relaxed mb-8 flex-1">
+    "{quote}"
+  </p>
+
+  <div class="flex flex-col items-center mt-auto">
+    <Image
+      src={avatar as ImageMetadata}
+      alt={avatarAlt}
+      class="w-16 h-16 rounded-full object-cover mb-3"
+    />
+    <p class="text-white font-bold text-base">{name}</p>
+    <p class="text-white/70 text-sm mt-1">{role}</p>
+  </div>
+</div>
