@@ -79,8 +79,8 @@ export default function ChangelogFilter({ entries, topics }: Props) {
   const tabs = ['All', ...topics] as const;
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-8 md:py-12">
-      <div className="grid grid-cols-1 md:grid-cols-[260px_1fr] gap-8 md:gap-12">
+    <section className="max-w-[88rem] mx-auto px-4 py-8 md:py-12">
+      <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8 md:gap-10">
         <aside>
           <form
             role="search"

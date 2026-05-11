@@ -7,8 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "strapi:seed": "node scripts/strapi-seed.mjs"
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",

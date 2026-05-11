@@ -1,7 +1,9 @@
-import { defineCollection, z, type SchemaContext } from 'astro:content';
+import { defineCollection, type SchemaContext } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob, file } from 'astro/loaders';
 import { CHANGELOG_TOPICS } from '@/lib/changelog-topics';
 
+// Homepage
 const homepageSectionSchema = ({ image }: SchemaContext) =>
   z.discriminatedUnion('type', [
     z.object({
@@ -69,6 +71,7 @@ const homepageNl = defineCollection({
   schema: homepageSectionSchema,
 });
 
+// Pricing
 const pricingPlanSchema = z.object({
   family: z.enum(['cloud', 'dedicated']),
   hardwareLine: z.enum(['combell-openstack', 'aws', 'jackal-enterprise', 'jackal']),
@@ -104,6 +107,7 @@ const pricingPlansEn = defineCollection({
   schema: pricingPlanSchema,
 });
 
+// Changelog
 const changelogEntrySchema = z.object({
   title: z.string(),
   excerpt: z.string(),
