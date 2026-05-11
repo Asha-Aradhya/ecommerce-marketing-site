@@ -2,6 +2,7 @@ import { defineCollection, type SchemaContext } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob, file } from 'astro/loaders';
 import { CHANGELOG_TOPICS } from '@/lib/changelog-topics';
+import { changelogLoader } from '@/lib/changelog-loader';
 
 // Homepage
 const homepageSectionSchema = ({ image }: SchemaContext) =>
@@ -107,6 +108,16 @@ const pricingPlansEn = defineCollection({
   schema: pricingPlanSchema,
 });
 
+const pricingFaqSchema = z.object({
+  question: z.string(),
+  order: z.number(),
+});
+
+const pricingFaqsEn = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/en/pricing/faqs' }),
+  schema: pricingFaqSchema,
+});
+
 // Changelog
 const changelogEntrySchema = z.object({
   title: z.string(),
@@ -115,10 +126,11 @@ const changelogEntrySchema = z.object({
   topic: z.enum(CHANGELOG_TOPICS),
   sourceUrl: z.string(),
   publishedAt: z.coerce.date(),
+  body: z.string().optional(),
 });
 
 const changelogEn = defineCollection({
-  loader: file('./strapi/seed.json'),
+  loader: changelogLoader(),
   schema: changelogEntrySchema,
 });
 
@@ -126,5 +138,6 @@ export const collections = {
   'homepage-en': homepageEn,
   'homepage-nl': homepageNl,
   'pricing-plans-en': pricingPlansEn,
+  'pricing-faqs-en': pricingFaqsEn,
   'changelog-en': changelogEn,
 };

@@ -1,40 +1,16 @@
 ---
-const linkClass = 'text-orange hover:text-orange-dark transition-colors';
+import { getCollection, render } from 'astro:content';
 
-const faqs = [
-  {
-    question: 'How do I know which hosting plan is right for me?',
-    answer: `We are always ready to help you find the optimal plan for your needs. You can request a <a href="/en/coming-soon/" class="${linkClass}">"Free hosting consult"</a>. As soon as we receive your request, one of our E-commerce hosting experts will reach out to you to discuss further.`,
-  },
-  {
-    question: "Is there a free trial available to test Hypernode's services?",
-    answer: `Yes, we offer a 14-day free trial that allows you to experience our platform and its features without any obligation. You can start your free trial by visiting our <a href="/en/coming-soon/" class="${linkClass}">Start Free Trial page</a>.`,
-  },
-  {
-    question: 'Can I change my plan at any time?',
-    answer: `Yes, Hypernode offers the flexibility to change your plan at any time to best meet your needs. With the assistance of our support team, you can easily upgrade or downgrade your hosting plan whenever necessary. Additionally, you can schedule up- and downgrades for a specific time and date through <a href="/en/coming-soon/" class="${linkClass}">Hypernode Control Panel</a>. For help choosing the right plan or making adjustments, please feel free to <a href="/en/coming-soon/" class="${linkClass}">contact our support team</a>.`,
-  },
-  {
-    question: 'What are the legacy plans?',
-    answer: `Legacy plans refer to older hosting plans that were previously offered by Hypernode but are no longer available to new customers. These include the Start, Grow, and Professional plans, which have since been replaced by our current plans. Existing customers on these plans can continue using them, but pricing and support options may differ from current plans. If you're on a legacy plan and interested in transitioning to a newer plan, please reach out to our <a href="/en/coming-soon/" class="${linkClass}">support team</a> for guidance on available options.`,
-  },
-  {
-    question: 'What support options are included with the hosting plans?',
-    answer: `All our hosting plans come with 24/7 premium support from our team of experts. Whether you need assistance with your online shop, optimisation advice, or help with development processes, our support team is ready to help you. For more information, please visit our <a href="/en/coming-soon/" class="${linkClass}">Support page</a>.`,
-  },
-  {
-    question: 'How can I learn about the prices of add-ons and other services?',
-    answer: `To learn more about the prices of add-ons and additional services, please <a href="/en/coming-soon/" class="${linkClass}">reach out to us</a>. Our team is here to provide detailed information and answer any questions you may have about tailoring our services to meet your needs.`,
-  },
-  {
-    question: 'What are free Brancher minutes?',
-    answer: `Hypernode Brancher is a powerful tool designed for running parallel integration tests, testing software version upgrades, or performing any other tasks requiring a temporary and isolated server environment. Brancher usage is charged per minute. With all AWS and OpenStack plans, we offer 400 complementary Brancher minutes for free to new subscriptions. This means you will not be charged for Brancher usage until it surpasses the threshold of 400 minutes per month per Hypernode.`,
-  },
-  {
-    question: 'How can I contact Hypernode for support or inquiries?',
-    answer: `You can call us at <a href="tel:+31205216226" class="${linkClass}">+31 20 521 6226</a> during office hours, Monday to Friday, 9:00 AM – 6:00 PM CE(S)T. For general support, please email us at <a href="mailto:support@hypernode.com" class="${linkClass}">support@hypernode.com</a>. For more details, visit our <a href="/en/coming-soon/" class="${linkClass}">Contact Page</a>.`,
-  },
-];
+const faqEntries = (await getCollection('pricing-faqs-en')).sort(
+  (firstEntry, secondEntry) => firstEntry.data.order - secondEntry.data.order,
+);
+
+const renderedFaqs = await Promise.all(
+  faqEntries.map(async (entry) => {
+    const { Content } = await render(entry);
+    return { question: entry.data.question, Content };
+  }),
+);
 ---
 
 <section class="py-20 md:py-28">
@@ -44,10 +20,10 @@ const faqs = [
     </h2>
 
     <div class="divide-y divide-gray-200">
-      {faqs.map((faq) => (
+      {renderedFaqs.map(({ question, Content }) => (
         <details name="faq" class="group py-5">
           <summary class="cursor-pointer list-none flex items-start justify-between gap-4 text-navy-dark font-semibold text-base md:text-lg">
-            <span>{faq.question}</span>
+            <span>{question}</span>
             <svg
               class="shrink-0 mt-1 text-navy-dark transition-transform group-open:rotate-180"
               width="20"
@@ -63,10 +39,9 @@ const faqs = [
               <polyline points="6 9 12 15 18 9" />
             </svg>
           </summary>
-          <div
-            class="mt-4 text-gray-700 leading-relaxed text-sm md:text-base"
-            set:html={faq.answer}
-          />
+          <div class="mt-4 text-gray-700 leading-relaxed text-sm md:text-base [&_a]:text-orange [&_a]:hover:text-orange-dark [&_a]:transition-colors">
+            <Content />
+          </div>
         </details>
       ))}
     </div>

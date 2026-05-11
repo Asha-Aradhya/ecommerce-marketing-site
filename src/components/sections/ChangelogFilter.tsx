@@ -79,8 +79,8 @@ export default function ChangelogFilter({ entries, topics }: Props) {
   const tabs = ['All', ...topics] as const;
 
   return (
-    <section className="max-w-[88rem] mx-auto px-4 py-8 md:py-12">
-      <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8 md:gap-10">
+    <section className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-6 py-8 md:py-12">
+      <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 md:gap-8">
         <aside>
           <form
             role="search"
@@ -169,10 +169,10 @@ export default function ChangelogFilter({ entries, topics }: Props) {
                     <button
                       type="button"
                       onClick={() => setActiveTopic(tab)}
-                      className={`whitespace-nowrap px-6 md:px-8 rounded-t-2xl font-bold text-sm md:text-base text-navy-dark transition-all ${
+                      className={`whitespace-nowrap px-4 lg:px-6 rounded-t-2xl font-bold text-sm text-navy-dark transition-all ${
                         isActive
-                          ? 'bg-blue-pale py-5 md:py-6 shadow-[inset_0_-3px_0_0_var(--color-orange)]'
-                          : 'bg-blue-pale/80 hover:bg-blue-pale py-4 md:py-5'
+                          ? 'bg-blue-pale py-4 md:py-5 shadow-[inset_0_-3px_0_0_var(--color-orange)]'
+                          : 'bg-blue-pale/80 hover:bg-blue-pale py-3 md:py-4'
                       }`}
                     >
                       {tab}
@@ -222,10 +222,8 @@ export default function ChangelogFilter({ entries, topics }: Props) {
                       {entry.excerpt}
                     </p>
                     <a
-                      href={entry.sourceUrl}
+                      href={`/en/changelog/${entry.id}/`}
                       className="inline-flex items-center text-sm font-semibold text-orange hover:text-orange-dark transition-colors"
-                      target="_blank"
-                      rel="noopener noreferrer"
                     >
                       Read more →
                     </a>

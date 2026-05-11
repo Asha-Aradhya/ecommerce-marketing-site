@@ -7,16 +7,15 @@
     "build": "astro build",
     "preview": "astro preview",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "strapi:seed": "node scripts/strapi-seed.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
     "@astrojs/react": "^5.0.4",
     "@astrojs/sitemap": "^3.7.2",
     "@hookform/resolvers": "^5.2.2",
-    "@tanstack/react-query": "^5.62.0",
     "astro": "^6.3.1",
-    "dompurify": "^3.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.75.0",
@@ -24,7 +23,6 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.0",
-    "@types/dompurify": "^3.0.5",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "eslint": "^9.0.0",

@@ -69,17 +69,35 @@ Serves `dist/` locally so you can verify the static output before deploying.
 | ------------------- | --------------------------------------- | ----------------------------------- |
 | Homepage sections   | MDX files in `src/content/{en,nl}/homepage/` | Astro `glob()` loader          |
 | Pricing plans       | `src/content/en/pricing/plans.yaml`     | Astro `file()` loader               |
-| Changelog entries   | `strapi/seed.json`                      | Astro `file()` loader               |
+| Pricing FAQs        | MDX files in `src/content/en/pricing/faqs/` | Astro `glob()` loader           |
+| Changelog entries   | Strapi v5 (Render) with `strapi/seed.json` fallback | Custom loader `src/lib/changelog-loader.ts` |
 
-### Changelog — Strapi-shaped JSON fixture
+### Changelog — Strapi-backed with JSON fallback
 
-The assignment allows "a seed script or JSON fixture" in place of a deployed Strapi. This project takes the fixture path:
+The changelog is sourced from a live Strapi v5 instance ([repo](https://github.com/Asha-Aradhya/ecommerce-marketing-cms), deployed to Render). The custom loader fetches entries at **build time** so the deployed site is fully static — Strapi is never hit at runtime.
 
-- `scripts/parse-changelog-data.mjs` parses an HTML snapshot of [changelog.hypernode.com](https://changelog.hypernode.com) and writes `strapi/seed.json`. Re-run it when refreshing the source data.
-- `src/content.config.ts` loads `strapi/seed.json` directly via Astro's content collection (`changelog-en`).
-- The schema (`title`, `excerpt`, `category`, `topic`, `sourceUrl`, `publishedAt`) is validated by Zod at build time and matches what a Strapi `Changelog Entry` content-type would expose.
+If Strapi is unreachable (cold start, network blip, missing env vars), the loader silently falls back to `strapi/seed.json` so the build always succeeds. Both data sources have the same shape, validated against the same Zod schema.
 
-The changelog page reads the JSON at build time — no Strapi instance is required to develop, build, or deploy.
+Required env vars (in Vercel for production, `.env` for local):
+
+```
+STRAPI_URL=https://ecommerce-marketing-cms.onrender.com
+STRAPI_TOKEN=<read-only API token, find + findOne permissions>
+```
+
+### Data scripts
+
+Two one-shot CLI scripts in `scripts/` manage the changelog data pipeline:
+
+- **`scripts/fetch-changelog-bodies.mjs`** — brings data **IN** from `changelog.hypernode.com` → into your local `strapi/seed.json`. For each entry's `sourceUrl`, fetches the HTML, extracts the article body, converts to Markdown, writes it back as a `body` field. Run with: `node scripts/fetch-changelog-bodies.mjs`.
+
+- **`scripts/strapi-seed.mjs`** — pushes data **OUT** from your local `strapi/seed.json` → into a Strapi CMS instance. Idempotent (upserts by `sourceUrl`). Run with:
+
+  ```bash
+  STRAPI_URL=<strapi-url> STRAPI_TOKEN=<token-with-create-update-permissions> npm run strapi:seed
+  ```
+
+Typical workflow: scrape Hypernode → fetch bodies into JSON → seed Strapi → site fetches from Strapi at build time.
 
 ## Deployment
 
