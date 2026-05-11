@@ -129,13 +129,29 @@ export default function ContactForm({ labels, comingSoonHref }: Props) {
     }
   }, [emailValue]);
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     if (!captchaToken) {
       setShowCaptchaError(true);
       return;
     }
     setShowCaptchaError(false);
-    console.log('Form submitted:', { ...data, captchaToken });
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...data, captchaToken }),
+      });
+      if (!response.ok) {
+        console.warn('[contact-form] Submission failed', response.status);
+        return;
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn('[contact-form] Network error:', message);
+      return;
+    }
+
     window.location.href = comingSoonHref;
   };
 
