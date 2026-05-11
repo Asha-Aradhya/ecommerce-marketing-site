@@ -9,6 +9,9 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  redirects: {
+    '/nl/changelog': '/nl/',
+  },
   integrations: [
     react(),
     mdx(),

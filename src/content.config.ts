@@ -1,5 +1,6 @@
 import { defineCollection, z, type SchemaContext } from 'astro:content';
 import { glob, file } from 'astro/loaders';
+import { CHANGELOG_TOPICS } from '@/lib/changelog-topics';
 
 const homepageSectionSchema = ({ image }: SchemaContext) =>
   z.discriminatedUnion('type', [
@@ -103,8 +104,23 @@ const pricingPlansEn = defineCollection({
   schema: pricingPlanSchema,
 });
 
+const changelogEntrySchema = z.object({
+  title: z.string(),
+  excerpt: z.string(),
+  category: z.enum(['Release', 'Update']),
+  topic: z.enum(CHANGELOG_TOPICS),
+  sourceUrl: z.string(),
+  publishedAt: z.coerce.date(),
+});
+
+const changelogEn = defineCollection({
+  loader: file('./strapi/seed.json'),
+  schema: changelogEntrySchema,
+});
+
 export const collections = {
   'homepage-en': homepageEn,
   'homepage-nl': homepageNl,
   'pricing-plans-en': pricingPlansEn,
+  'changelog-en': changelogEn,
 };

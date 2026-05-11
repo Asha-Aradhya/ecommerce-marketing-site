@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { CHANGELOG_TOPICS } from '@/lib/changelog-topics';
+import ChangelogFilter from '@/components/sections/ChangelogFilter.tsx';
+
+const collectionEntries = (await getCollection('changelog-en')).sort(
+  (firstEntry, secondEntry) =>
+    secondEntry.data.publishedAt.getTime() - firstEntry.data.publishedAt.getTime()
+);
+
+const entries = collectionEntries.map((entry) => ({
+  id: entry.id,
+  title: entry.data.title,
+  excerpt: entry.data.excerpt,
+  category: entry.data.category,
+  topic: entry.data.topic,
+  sourceUrl: entry.data.sourceUrl,
+  publishedAt: entry.data.publishedAt.toISOString(),
+}));
+---
+
+<BaseLayout
+  title="Changelog | Hypernode"
+  description="Latest releases, updates, and improvements to the Hypernode platform."
+>
+  <main>
+    <section class="pt-12 md:pt-16 pb-4 text-center max-w-3xl mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-bold text-navy-dark mb-4">Changelog</h1>
+      <p class="text-navy-dark text-base md:text-lg">
+        Latest releases, updates, and improvements to the Hypernode platform.
+      </p>
+    </section>
+
+    <ChangelogFilter
+      entries={entries}
+      topics={CHANGELOG_TOPICS}
+      client:load
+    />
+  </main>
+</BaseLayout>
