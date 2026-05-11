@@ -104,3 +104,30 @@ Typical workflow: scrape Hypernode → fetch bodies into JSON → seed Strapi �
 The site builds to fully static HTML/CSS/JS in `dist/`, so any static host works: Vercel, Netlify, Cloudflare Pages, S3 + CloudFront, GitHub Pages, etc. No server-side runtime is required.
 
 `astro.config.mjs` pins `site: 'https://ecommerce-marketing-site.vercel.app'` — update this before deploying elsewhere so the canonical URLs and sitemap are correct.
+
+### Recommended: Lighthouse CI on deploy
+
+Adding a Lighthouse CI check to the deployment pipeline would catch performance, accessibility, and SEO regressions before they ship. A current PageSpeed Insights run scores 94/96/96/92, and gating future merges against those thresholds (or the Core Web Vitals) keeps that bar from quietly slipping as new pages and components land.
+
+Options:
+
+- **`@lhci/cli` in GitHub Actions** — run `lhci autorun` against the preview deploy URL, fail the job if any category drops below a configured threshold. Config lives in `lighthouserc.json` at the repo root.
+- **Vercel's built-in Lighthouse integration** — runs against each preview deploy and posts the scores as a PR comment. Lower friction, no config file, but no hard gating.
+
+A minimal `lighthouserc.json` to enforce the current baseline:
+
+```json
+{
+  "ci": {
+    "collect": { "url": ["https://<preview-url>/en/"], "numberOfRuns": 3 },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.9 }],
+        "categories:accessibility": ["error", { "minScore": 0.95 }],
+        "categories:seo": ["error", { "minScore": 0.9 }]
+      }
+    }
+  }
+}
+```
+
