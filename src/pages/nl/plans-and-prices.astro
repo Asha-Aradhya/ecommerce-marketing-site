@@ -6,7 +6,7 @@ import Faq from '@/components/pricing/Faq.astro';
 import { useTranslations, type Lang } from '@/i18n/ui';
 import { buildPricingTabsLabels } from '@/lib/pricing-tabs-labels';
 
-const lang = (Astro.currentLocale ?? 'en') as Lang;
+const lang = (Astro.currentLocale ?? 'nl') as Lang;
 const translate = useTranslations(lang);
 const pricingTabsLabels = buildPricingTabsLabels(lang);
 

@@ -3,6 +3,19 @@ import type { ReactNode } from 'react';
 
 type TabId = 'recommended' | 'launch' | 'reach' | 'optimize';
 
+interface TeamblueLabels {
+  heading: string;
+  recommended: string;
+  launch: string;
+  reach: string;
+  optimize: string;
+  productHref: string;
+}
+
+interface Props {
+  labels: TeamblueLabels;
+}
+
 interface Tab {
   id: TabId;
   label: string;
@@ -77,12 +90,14 @@ const CursorIcon = () => (
   </svg>
 );
 
-const TABS: Tab[] = [
-  { id: 'recommended', label: 'Recommended', icon: <StarIcon /> },
-  { id: 'launch', label: 'Launch your website', icon: <BrowserIcon /> },
-  { id: 'reach', label: 'Reach more customers', icon: <PeopleIcon /> },
-  { id: 'optimize', label: 'Optimise your operations', icon: <CursorIcon /> },
-];
+function buildTabs(labels: TeamblueLabels): Tab[] {
+  return [
+    { id: 'recommended', label: labels.recommended, icon: <StarIcon /> },
+    { id: 'launch', label: labels.launch, icon: <BrowserIcon /> },
+    { id: 'reach', label: labels.reach, icon: <PeopleIcon /> },
+    { id: 'optimize', label: labels.optimize, icon: <CursorIcon /> },
+  ];
+}
 
 const PRODUCTS: Product[] = [
   {
@@ -213,8 +228,9 @@ const PRODUCTS: Product[] = [
   },
 ];
 
-export default function FooterTeamblue() {
+export default function FooterTeamblue({ labels }: Props) {
   const [activeTabId, setActiveTabId] = useState<TabId>('recommended');
+  const tabs = buildTabs(labels);
 
   const visibleProducts = PRODUCTS.filter((product) =>
     product.categories.includes(activeTabId),
@@ -228,14 +244,13 @@ export default function FooterTeamblue() {
         </div>
 
         <h2 className="text-white text-2xl md:text-3xl font-bold mb-10 md:mb-12 leading-tight border-l-4 border-blue-light pl-4">
-          <span className="text-blue-light">Hypernode</span> is part of team.blue, a family of
-          products for your online success
+          <span className="text-blue-light">Hypernode</span> {labels.heading}
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-1 bg-white/5 rounded-2xl p-3 self-start">
             <ul className="space-y-1">
-              {TABS.map((tab) => (
+              {tabs.map((tab) => (
                 <li key={tab.id}>
                   <button
                     type="button"
@@ -258,7 +273,7 @@ export default function FooterTeamblue() {
             {visibleProducts.map((product) => (
               <a
                 key={product.productName}
-                href="/en/coming-soon/"
+                href={labels.productHref}
                 className="bg-white/5 hover:bg-white/10 rounded-xl p-5 flex items-start gap-4 transition-colors group no-underline"
               >
                 <div

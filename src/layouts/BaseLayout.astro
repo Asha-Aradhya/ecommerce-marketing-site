@@ -8,12 +8,14 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  langSwitchHref?: string;
 }
 
 const {
   title,
   description,
   ogImage = '/images/og-default.png',
+  langSwitchHref: langSwitchHrefOverride,
 } = Astro.props;
 
 const lang = (Astro.currentLocale ?? 'en') as Lang;
@@ -25,7 +27,7 @@ const swapLocale = (path: string, targetLocale: string) =>
   path.replace(/^\/[a-z]{2}\//, `/${targetLocale}/`);
 
 const canonical = new URL(currentPath, Astro.site).href;
-const langSwitchHref = swapLocale(currentPath, otherLocale);
+const langSwitchHref = langSwitchHrefOverride ?? swapLocale(currentPath, otherLocale);
 const hreflang = allLocales.map(targetLocale => ({
   lang: targetLocale,
   href: new URL(swapLocale(currentPath, targetLocale), Astro.site).href,

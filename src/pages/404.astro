@@ -1,0 +1,46 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { ui } from '@/i18n/ui';
+
+// 404 is locale-agnostic — a single static page serves every unrouted
+// request, so both English and Dutch strings are rendered side by side.
+const en = ui.en;
+const nl = ui.nl;
+---
+
+<BaseLayout
+  title={`${en['notFound.title']} | Hypernode`}
+  description={en['notFound.body']}
+>
+  <main class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 text-center">
+    <p class="text-orange font-bold text-sm uppercase tracking-widest mb-4">404</p>
+
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-navy-dark mb-4">
+      {en['notFound.heading']}
+    </h1>
+    <p class="text-base md:text-lg text-gray-700 mb-8">
+      {en['notFound.body']}
+    </p>
+    <a
+      href={en['nav.home.href']}
+      class="inline-block text-sm font-semibold px-6 py-3 rounded-full bg-orange text-white hover:bg-orange-dark transition-colors"
+    >
+      {en['notFound.backHome']}
+    </a>
+
+    <div class="mt-16 pt-12 border-t border-gray-200">
+      <h2 class="text-2xl sm:text-3xl font-bold text-navy-dark mb-4">
+        {nl['notFound.heading']}
+      </h2>
+      <p class="text-base md:text-lg text-gray-700 mb-8">
+        {nl['notFound.body']}
+      </p>
+      <a
+        href={nl['nav.home.href']}
+        class="inline-block text-sm font-semibold px-6 py-3 rounded-full bg-orange text-white hover:bg-orange-dark transition-colors"
+      >
+        {nl['notFound.backHome']}
+      </a>
+    </div>
+  </main>
+</BaseLayout>

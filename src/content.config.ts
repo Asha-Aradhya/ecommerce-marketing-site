@@ -108,6 +108,11 @@ const pricingPlansEn = defineCollection({
   schema: pricingPlanSchema,
 });
 
+const pricingPlansNl = defineCollection({
+  loader: file('./src/content/nl/pricing/plans.yaml'),
+  schema: pricingPlanSchema,
+});
+
 const pricingFaqSchema = z.object({
   question: z.string(),
   order: z.number(),
@@ -115,6 +120,11 @@ const pricingFaqSchema = z.object({
 
 const pricingFaqsEn = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/en/pricing/faqs' }),
+  schema: pricingFaqSchema,
+});
+
+const pricingFaqsNl = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/nl/pricing/faqs' }),
   schema: pricingFaqSchema,
 });
 
@@ -138,6 +148,8 @@ export const collections = {
   'homepage-en': homepageEn,
   'homepage-nl': homepageNl,
   'pricing-plans-en': pricingPlansEn,
+  'pricing-plans-nl': pricingPlansNl,
   'pricing-faqs-en': pricingFaqsEn,
+  'pricing-faqs-nl': pricingFaqsNl,
   'changelog-en': changelogEn,
 };

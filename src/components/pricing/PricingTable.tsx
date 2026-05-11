@@ -27,10 +27,27 @@ interface Plan {
   order: number;
 }
 
+export interface PricingTableLabels {
+  name: string;
+  cpus: string;
+  storage: string;
+  ram: string;
+  buy: string;
+  buyAria: string; // "Buy {plan}" — caller replaces {plan}
+  monthly: string;
+  daily: string;
+  yearly: string;
+  features: string;
+  nearZeroDowntime: string;
+  mostPopular: string;
+  devSuffix: string;
+}
+
 interface Props {
   title: string;
   plans: Plan[];
   mode: 'production' | 'development';
+  labels: PricingTableLabels;
 }
 
 type Currency = 'eur' | 'gbp';
@@ -84,16 +101,17 @@ const DEDICATED_FEATURES = [
 interface FeaturesPopoverProps {
   planName: string;
   features: string[];
+  featuresLabel: string;
 }
 
-function FeaturesPopover({ planName, features }: FeaturesPopoverProps) {
+function FeaturesPopover({ planName, features, featuresLabel }: FeaturesPopoverProps) {
   return (
     <div className="relative group inline-block">
       <button
         type="button"
         className="text-navy-dark hover:text-orange underline text-xs"
       >
-        features
+        {featuresLabel}
       </button>
       <div className="absolute left-0 top-full mt-2 hidden group-hover:block z-20 bg-white border border-gray-200 rounded-lg shadow-xl p-4 w-72 text-left">
         <h4 className="font-bold text-navy-dark mb-3 text-sm">{planName}</h4>
@@ -110,29 +128,29 @@ function FeaturesPopover({ planName, features }: FeaturesPopoverProps) {
   );
 }
 
-function NearZeroDowntimeBadge() {
+function NearZeroDowntimeBadge({ label }: { label: string }) {
   return (
     <span className="inline-flex items-center gap-1 border border-emerald-300 bg-emerald-50 text-emerald-700 text-xs px-2 py-0.5 rounded">
       <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-      near zero downtime scaling
+      {label}
     </span>
   );
 }
 
-function MostPopularBadge() {
+function MostPopularBadge({ label }: { label: string }) {
   return (
     <span className="inline-flex items-center gap-1 bg-orange text-white text-[10px] uppercase tracking-wide px-2 py-0.5 rounded">
       <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
-      most popular
+      {label}
     </span>
   );
 }
 
-function BuyButton({ planName }: { planName: string }) {
+function BuyButton({ planName, ariaTemplate }: { planName: string; ariaTemplate: string }) {
   return (
     <a
       href="/en/coming-soon/"
-      aria-label={`Buy ${planName}`}
+      aria-label={ariaTemplate.replace('{plan}', planName)}
       className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-navy-dark text-navy-dark hover:bg-orange hover:border-orange hover:text-white transition-colors"
     >
       <svg
@@ -152,12 +170,12 @@ function BuyButton({ planName }: { planName: string }) {
   );
 }
 
-export default function PricingTable({ title, plans, mode }: Props) {
+export default function PricingTable({ title, plans, mode, labels }: Props) {
   const family = plans[0]?.family ?? 'cloud';
   const isCloud = family === 'cloud';
   const features = isCloud ? CLOUD_FEATURES : DEDICATED_FEATURES;
   const altPeriod: Period = isCloud ? 'daily' : 'yearly';
-  const altPeriodLabel = isCloud ? 'Daily' : 'Yearly';
+  const altPeriodLabel = isCloud ? labels.daily : labels.yearly;
 
   const [currency, setCurrency] = useState<Currency>('eur');
   const [period, setPeriod] = useState<Period>('monthly');
@@ -182,9 +200,9 @@ export default function PricingTable({ title, plans, mode }: Props) {
     return `${symbol} ${price.toLocaleString('en-US')}`;
   };
 
-  const periodLabel = period === 'monthly' ? 'Monthly' : period === 'daily' ? 'Daily' : 'Yearly';
+  const periodLabel = period === 'monthly' ? labels.monthly : period === 'daily' ? labels.daily : labels.yearly;
   const planDisplayName = (plan: Plan) =>
-    `${plan.name}${mode === 'development' ? ' Dev' : ''}`;
+    `${plan.name}${mode === 'development' ? labels.devSuffix : ''}`;
 
   const radioId = (name: string, value: string) => `${title}-${name}-${value}`;
 
@@ -199,7 +217,7 @@ export default function PricingTable({ title, plans, mode }: Props) {
       {/* Mobile: toggle switches above the cards */}
       <div className="lg:hidden flex flex-wrap items-center justify-between gap-4 mb-4">
         <Toggle
-          leftLabel="Monthly"
+          leftLabel={labels.monthly}
           rightLabel={
             <span className="flex items-center gap-1">
               {altPeriodLabel}
@@ -222,10 +240,10 @@ export default function PricingTable({ title, plans, mode }: Props) {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-200 align-top">
-              <th className="text-left px-4 py-4 font-medium text-navy-dark">Name</th>
-              <th className="text-left px-4 py-4 font-medium text-navy-dark">CPUs</th>
-              <th className="text-left px-4 py-4 font-medium text-navy-dark">SSD storage</th>
-              <th className="text-left px-4 py-4 font-medium text-navy-dark">RAM</th>
+              <th className="text-left px-4 py-4 font-medium text-navy-dark">{labels.name}</th>
+              <th className="text-left px-4 py-4 font-medium text-navy-dark">{labels.cpus}</th>
+              <th className="text-left px-4 py-4 font-medium text-navy-dark">{labels.storage}</th>
+              <th className="text-left px-4 py-4 font-medium text-navy-dark">{labels.ram}</th>
               <th className="text-left px-4 py-4 font-medium text-navy-dark">
                 <div className="flex gap-6">
                   <div className="flex flex-col gap-1">
@@ -271,7 +289,7 @@ export default function PricingTable({ title, plans, mode }: Props) {
                         onChange={() => setPeriod('monthly')}
                         className="accent-orange"
                       />
-                      <span>Monthly</span>
+                      <span>{labels.monthly}</span>
                     </label>
                     <label
                       htmlFor={radioId('period', 'alt')}
@@ -293,7 +311,7 @@ export default function PricingTable({ title, plans, mode }: Props) {
                   </div>
                 </div>
               </th>
-              <th className="text-right px-4 py-4 font-medium text-navy-dark">Buy</th>
+              <th className="text-right px-4 py-4 font-medium text-navy-dark">{labels.buy}</th>
             </tr>
           </thead>
           <tbody>
@@ -302,11 +320,17 @@ export default function PricingTable({ title, plans, mode }: Props) {
                 <td className="px-4 py-4 align-top">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
                     <span className="font-bold text-navy-dark text-base">{planDisplayName(plan)}</span>
-                    {plan.isMostPopular && <MostPopularBadge />}
+                    {plan.isMostPopular && <MostPopularBadge label={labels.mostPopular} />}
                   </div>
                   <div className="flex items-center gap-3 flex-wrap">
-                    <FeaturesPopover planName={planDisplayName(plan)} features={features} />
-                    {plan.hasNearZeroDowntime && <NearZeroDowntimeBadge />}
+                    <FeaturesPopover
+                      planName={planDisplayName(plan)}
+                      features={features}
+                      featuresLabel={labels.features}
+                    />
+                    {plan.hasNearZeroDowntime && (
+                      <NearZeroDowntimeBadge label={labels.nearZeroDowntime} />
+                    )}
                   </div>
                 </td>
                 <td className="px-4 py-4 text-navy-dark align-top">
@@ -322,7 +346,7 @@ export default function PricingTable({ title, plans, mode }: Props) {
                   {formatPrice(getPrice(plan))}
                 </td>
                 <td className="px-4 py-4 text-right align-top">
-                  <BuyButton planName={plan.name} />
+                  <BuyButton planName={plan.name} ariaTemplate={labels.buyAria} />
                 </td>
               </tr>
             ))}
@@ -336,12 +360,12 @@ export default function PricingTable({ title, plans, mode }: Props) {
           <div key={plan.id} className="border border-gray-200 rounded-2xl p-5">
             {plan.hasNearZeroDowntime && (
               <div className="mb-2">
-                <NearZeroDowntimeBadge />
+                <NearZeroDowntimeBadge label={labels.nearZeroDowntime} />
               </div>
             )}
             {plan.isMostPopular && (
               <div className="mb-2">
-                <MostPopularBadge />
+                <MostPopularBadge label={labels.mostPopular} />
               </div>
             )}
 
@@ -350,7 +374,11 @@ export default function PricingTable({ title, plans, mode }: Props) {
                 <h4 className="font-bold text-navy-dark text-base mb-1">
                   {planDisplayName(plan)}
                 </h4>
-                <FeaturesPopover planName={planDisplayName(plan)} features={features} />
+                <FeaturesPopover
+                  planName={planDisplayName(plan)}
+                  features={features}
+                  featuresLabel={labels.features}
+                />
               </div>
               <div className="text-right shrink-0">
                 <div className="font-bold text-navy-dark text-lg">
@@ -362,17 +390,17 @@ export default function PricingTable({ title, plans, mode }: Props) {
 
             <div className="border-t border-gray-100 pt-3 space-y-1.5 text-sm">
               <div className="flex justify-between items-baseline">
-                <span className="text-gray-500">CPUs</span>
+                <span className="text-gray-500">{labels.cpus}</span>
                 <strong className="text-navy-dark">{plan.cpus}</strong>
               </div>
               <div className="flex justify-between items-baseline">
-                <span className="text-gray-500">SSD storage</span>
+                <span className="text-gray-500">{labels.storage}</span>
                 <strong className="text-navy-dark">
                   {plan.storageGb} <span className="font-normal text-gray-500">GB</span>
                 </strong>
               </div>
               <div className="flex justify-between items-baseline">
-                <span className="text-gray-500">RAM</span>
+                <span className="text-gray-500">{labels.ram}</span>
                 <strong className="text-navy-dark">
                   {plan.ramGb} <span className="font-normal text-gray-500">GB</span>
                 </strong>
@@ -380,7 +408,7 @@ export default function PricingTable({ title, plans, mode }: Props) {
             </div>
 
             <div className="flex justify-end mt-4">
-              <BuyButton planName={plan.name} />
+              <BuyButton planName={plan.name} ariaTemplate={labels.buyAria} />
             </div>
           </div>
         ))}

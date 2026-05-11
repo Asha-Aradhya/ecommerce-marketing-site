@@ -84,7 +84,10 @@ export function changelogLoader(): Loader {
 
       store.clear();
       for (const entry of entries) {
-        const parsedData = await parseData({ id: entry.id, data: entry });
+        const parsedData = await parseData({
+          id: entry.id,
+          data: entry as unknown as Record<string, unknown>,
+        });
         store.set({ id: entry.id, data: parsedData });
       }
     },

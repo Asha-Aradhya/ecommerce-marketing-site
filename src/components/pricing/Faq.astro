@@ -1,7 +1,11 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { useTranslations, type Lang } from '@/i18n/ui';
 
-const faqEntries = (await getCollection('pricing-faqs-en')).sort(
+const lang = (Astro.currentLocale ?? 'en') as Lang;
+const translate = useTranslations(lang);
+
+const faqEntries = (await getCollection(`pricing-faqs-${lang}`)).sort(
   (firstEntry, secondEntry) => firstEntry.data.order - secondEntry.data.order,
 );
 
@@ -16,7 +20,7 @@ const renderedFaqs = await Promise.all(
 <section class="py-20 md:py-28">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
     <h2 class="text-3xl md:text-5xl font-bold text-navy-dark text-center mb-12 md:mb-16">
-      Frequently asked questions
+      {translate('pricing.faqTitle')}
     </h2>
 
     <div class="divide-y divide-gray-200">

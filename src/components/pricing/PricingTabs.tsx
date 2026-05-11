@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import PricingTable from './PricingTable';
+import PricingTable, { type PricingTableLabels } from './PricingTable';
 import Toggle from '@/components/ui/Toggle';
 
 interface PriceSet {
@@ -30,8 +30,32 @@ interface Plan {
 
 type Mode = 'production' | 'development';
 
+export interface PricingTabsLabels {
+  production: string;
+  development: string;
+  cloud: string;
+  cloudSubtitle: string;
+  dedicated: string;
+  dedicatedSubtitle: string;
+  unsureCopy: string;
+  consultCta: string;
+  consultHref: string;
+  cloudHeading: string;
+  cloudIntro: string;
+  cloudNoteBefore: string;
+  cloudNoteAfter: string;
+  dedicatedHeading: string;
+  dedicatedIntro: string;
+  enterpriseTitle: string;
+  standardTitle: string;
+  combellTitle: string;
+  awsTitle: string;
+  table: PricingTableLabels;
+}
+
 interface Props {
   plans: Plan[];
+  labels: PricingTabsLabels;
 }
 
 const CubeIcon = () => (
@@ -54,7 +78,7 @@ const CubeIcon = () => (
 
 type SectionId = 'cloud-pricing' | 'dedicated-pricing';
 
-export default function PricingTabs({ plans }: Props) {
+export default function PricingTabs({ plans, labels }: Props) {
   const [mode, setMode] = useState<Mode>('production');
   const [activeSection, setActiveSection] = useState<SectionId>('cloud-pricing');
 
@@ -100,8 +124,8 @@ export default function PricingTabs({ plans }: Props) {
         <aside className="lg:sticky lg:top-24 lg:self-start">
           <div className="mb-6">
             <Toggle
-              leftLabel="Production"
-              rightLabel="Development"
+              leftLabel={labels.production}
+              rightLabel={labels.development}
               isLeft={mode === 'production'}
               onToggle={() => setMode(mode === 'production' ? 'development' : 'production')}
             />
@@ -120,8 +144,8 @@ export default function PricingTabs({ plans }: Props) {
                 <CubeIcon />
               </span>
               <div>
-                <div className="font-bold text-navy-dark">Cloud</div>
-                <div className="text-xs text-gray-500">Cloud hosting plans</div>
+                <div className="font-bold text-navy-dark">{labels.cloud}</div>
+                <div className="text-xs text-gray-500">{labels.cloudSubtitle}</div>
               </div>
             </a>
 
@@ -137,21 +161,19 @@ export default function PricingTabs({ plans }: Props) {
                 <CubeIcon />
               </span>
               <div>
-                <div className="font-bold text-navy-dark">Dedicated</div>
-                <div className="text-xs text-gray-500">Dedicated hosting plans</div>
+                <div className="font-bold text-navy-dark">{labels.dedicated}</div>
+                <div className="text-xs text-gray-500">{labels.dedicatedSubtitle}</div>
               </div>
             </a>
           </nav>
 
           <div className="text-sm text-navy-dark text-center border-t border-gray-200 pt-6">
-            <p className="mb-4">
-              Not sure yet which hosting plan suits you best? Contact us for consultation.
-            </p>
+            <p className="mb-4">{labels.unsureCopy}</p>
             <a
-              href="/en/coming-soon/"
+              href={labels.consultHref}
               className="inline-block bg-orange hover:bg-orange-dark text-white font-semibold rounded-full px-6 py-3 text-sm transition-colors no-underline"
             >
-              Start hosting consult
+              {labels.consultCta}
             </a>
           </div>
         </aside>
@@ -159,37 +181,47 @@ export default function PricingTabs({ plans }: Props) {
         <div className="min-w-0">
           <section id="cloud-pricing" className="mb-16 scroll-mt-24">
             <h2 className="text-2xl md:text-3xl font-bold text-navy-dark mb-3">
-              Cloud hosting pricing
+              {labels.cloudHeading}
             </h2>
-            <p className="text-navy-dark text-sm md:text-base mb-2">
-              Ideal for unpredictable traffic patterns. Cloud hosting provides maximum flexibility
-              and scalability with data redundancy, virtual backups, fast recovery, and pay-as-you-go
-              pricing.
-            </p>
+            <p className="text-navy-dark text-sm md:text-base mb-2">{labels.cloudIntro}</p>
             <p className="text-navy-dark text-sm md:text-base font-medium">
-              Additionally, in 2026, all Combell Openstack plans include 400 complimentary{' '}
-              <span className="text-orange">Brancher</span> minutes for free!
+              {labels.cloudNoteBefore}
+              <span className="text-orange">Brancher</span>
+              {labels.cloudNoteAfter}
             </p>
 
-            <PricingTable title="Combell OpenStack" plans={combellPlans} mode={mode} />
-            <PricingTable title="Amazon Web Services" plans={awsPlans} mode={mode} />
+            <PricingTable
+              title={labels.combellTitle}
+              plans={combellPlans}
+              mode={mode}
+              labels={labels.table}
+            />
+            <PricingTable
+              title={labels.awsTitle}
+              plans={awsPlans}
+              mode={mode}
+              labels={labels.table}
+            />
           </section>
 
           <section id="dedicated-pricing" className="mb-16 scroll-mt-24">
             <h2 className="text-2xl md:text-3xl font-bold text-navy-dark mb-3">
-              Dedicated hosting pricing
+              {labels.dedicatedHeading}
             </h2>
-            <p className="text-navy-dark text-sm md:text-base">
-              Great for predictable traffic patterns. Dedicated hosting offers maximum performance
-              and more resources at a comparatively lower cost.
-            </p>
+            <p className="text-navy-dark text-sm md:text-base">{labels.dedicatedIntro}</p>
 
             <PricingTable
-              title="Dedicated plans - Enterprise"
+              title={labels.enterpriseTitle}
               plans={enterprisePlans}
               mode={mode}
+              labels={labels.table}
             />
-            <PricingTable title="Dedicated plans" plans={standardPlans} mode={mode} />
+            <PricingTable
+              title={labels.standardTitle}
+              plans={standardPlans}
+              mode={mode}
+              labels={labels.table}
+            />
           </section>
         </div>
       </div>
