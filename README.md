@@ -131,3 +131,10 @@ A minimal `lighthouserc.json` to enforce the current baseline:
 }
 ```
 
+## What I'd add with more time
+
+- **Unit tests** — Vitest covering the changelog loader (Strapi-fetch path, fallback path, `releasedAt` → `publishedAt` mapping), the `/api/contact` Zod validator, and any data transformation utilities. Cheap to write, catches regressions when the Strapi schema or `seed.json` shape changes.
+- **Accessibility audit and remediation** — The current implementation uses semantic HTML, aria-labels on icon-only buttons, and `eslint-plugin-jsx-a11y` enforces basic rules in source. With more time I would run a formal audit using `@axe-core/playwright` against every page + every locale, plus manual screen-reader testing with VoiceOver and NVDA. Lighthouse's accessibility score is a heuristic; axe + manual is the real check.
+- **Storybook for the React islands** — `ChangelogFilter`, `PricingTabs`, `PricingTable`, `ContactForm`, `NavbarMobileDrawer`, `FooterTeamblue` each have multiple visual states (active tab, error state, empty filter, loading, etc.). A Storybook gives designers a stable URL to review components in isolation, and pairs naturally with visual-regression testing via Chromatic or Percy.
+- **Integration tests** — Playwright covering the critical user flows: homepage loads in both locales, language toggle round-trips, changelog filter narrows entries by year + topic + search, pricing toggles update prices, contact form submits successfully and renders server-side errors when validation fails. Run in CI on every PR against the preview deploy URL — same target as Lighthouse CI above, same dependencies.
+

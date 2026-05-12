@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { useTranslations, type Lang } from '@/i18n/ui';
+import { useTranslations, type Lang } from '@/i18n/text';
 
 const lang = (Astro.currentLocale ?? 'en') as Lang;
 const t = useTranslations(lang);

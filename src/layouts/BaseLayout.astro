@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Navbar from '../components/layout/Navbar.astro';
 import Footer from '../components/layout/Footer.astro';
-import { ui, type Lang } from '@/i18n/ui';
+import { text, type Lang } from '@/i18n/text';
 
 interface Props {
   title: string;
@@ -19,7 +19,7 @@ const {
 } = Astro.props;
 
 const lang = (Astro.currentLocale ?? 'en') as Lang;
-const allLocales = Object.keys(ui) as Lang[];
+const allLocales = Object.keys(text) as Lang[];
 const otherLocale = allLocales.find(targetLocale => targetLocale !== lang) ?? 'en';
 
 const currentPath = Astro.url.pathname;

@@ -1,47 +1,6 @@
 import { useState } from 'react';
 import Toggle from '@/components/ui/Toggle';
-
-interface PriceSet {
-  monthlyEur: number;
-  monthlyGbp: number;
-  dailyEur?: number;
-  dailyGbp?: number;
-  yearlyEur?: number;
-  yearlyGbp?: number;
-}
-
-interface Plan {
-  id: string;
-  family: 'cloud' | 'dedicated';
-  hardwareLine: string;
-  name: string;
-  cpus: number;
-  storageGb: number;
-  ramGb: number;
-  prices: {
-    production: PriceSet;
-    development: PriceSet;
-  };
-  isMostPopular?: boolean;
-  hasNearZeroDowntime?: boolean;
-  order: number;
-}
-
-export interface PricingTableLabels {
-  name: string;
-  cpus: string;
-  storage: string;
-  ram: string;
-  buy: string;
-  buyAria: string; // "Buy {plan}" — caller replaces {plan}
-  monthly: string;
-  daily: string;
-  yearly: string;
-  features: string;
-  nearZeroDowntime: string;
-  mostPopular: string;
-  devSuffix: string;
-}
+import type { Plan, PricingTableLabels } from '@/types/pricing';
 
 interface Props {
   title: string;

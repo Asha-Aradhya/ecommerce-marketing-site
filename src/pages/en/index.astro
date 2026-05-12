@@ -7,7 +7,7 @@ import LogoStrip from "@/components/sections/LogoStrip.astro";
 import TestimonialsSection from "@/components/sections/TestimonialsSection.astro";
 import ContactFormSection from "@/components/sections/ContactFormSection.astro";
 import { getCollection, render } from "astro:content";
-import { type Lang } from "@/i18n/ui";
+import { type Lang } from "@/i18n/text";
 
 const lang = (Astro.currentLocale ?? "en") as Lang;
 const sections = (await getCollection(`homepage-${lang}`)).sort(

@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import PricingTabs from '@/components/pricing/PricingTabs';
 import Faq from '@/components/pricing/Faq.astro';
-import { useTranslations, type Lang } from '@/i18n/ui';
+import { useTranslations, type Lang } from '@/i18n/text';
 import { buildPricingTabsLabels } from '@/lib/pricing-tabs-labels';
 
 const lang = (Astro.currentLocale ?? 'nl') as Lang;

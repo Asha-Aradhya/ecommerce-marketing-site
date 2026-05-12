@@ -15,15 +15,13 @@ export const prerender = false;
 const contactSchema = z.object({
   firstName: z.string().min(1, 'First name is required'),
   lastName: z.string().min(1, 'Last name is required'),
-  email: z.string().email('Valid email is required'),
+  email: z.email('Valid email is required'),
   company: z.string().optional(),
   website: z.string().optional(),
   phone: z.string().optional(),
   message: z.string().optional(),
   newsletter: z.boolean().optional(),
-  privacyConsent: z.literal(true, {
-    errorMap: () => ({ message: 'Privacy policy consent is required' }),
-  }),
+  privacyConsent: z.literal(true, { error: 'Privacy policy consent is required' }),
   captchaToken: z.string().min(1, 'Captcha is required'),
 });
 

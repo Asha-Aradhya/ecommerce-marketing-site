@@ -1,57 +1,9 @@
 import { useState, useEffect } from 'react';
-import PricingTable, { type PricingTableLabels } from './PricingTable';
+import PricingTable from './PricingTable';
 import Toggle from '@/components/ui/Toggle';
-
-interface PriceSet {
-  monthlyEur: number;
-  monthlyGbp: number;
-  dailyEur?: number;
-  dailyGbp?: number;
-  yearlyEur?: number;
-  yearlyGbp?: number;
-}
-
-interface Plan {
-  id: string;
-  family: 'cloud' | 'dedicated';
-  hardwareLine: string;
-  name: string;
-  cpus: number;
-  storageGb: number;
-  ramGb: number;
-  prices: {
-    production: PriceSet;
-    development: PriceSet;
-  };
-  isMostPopular?: boolean;
-  hasNearZeroDowntime?: boolean;
-  order: number;
-}
+import type { Plan, PricingTabsLabels } from '@/types/pricing';
 
 type Mode = 'production' | 'development';
-
-export interface PricingTabsLabels {
-  production: string;
-  development: string;
-  cloud: string;
-  cloudSubtitle: string;
-  dedicated: string;
-  dedicatedSubtitle: string;
-  unsureCopy: string;
-  consultCta: string;
-  consultHref: string;
-  cloudHeading: string;
-  cloudIntro: string;
-  cloudNoteBefore: string;
-  cloudNoteAfter: string;
-  dedicatedHeading: string;
-  dedicatedIntro: string;
-  enterpriseTitle: string;
-  standardTitle: string;
-  combellTitle: string;
-  awsTitle: string;
-  table: PricingTableLabels;
-}
 
 interface Props {
   plans: Plan[];

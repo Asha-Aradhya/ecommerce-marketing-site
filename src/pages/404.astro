@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { ui } from '@/i18n/ui';
+import { text } from '@/i18n/text';
 
 // 404 is locale-agnostic — a single static page serves every unrouted
 // request, so both English and Dutch strings are rendered side by side.
-const en = ui.en;
-const nl = ui.nl;
+const en = text.en;
+const nl = text.nl;
 ---
 
 <BaseLayout

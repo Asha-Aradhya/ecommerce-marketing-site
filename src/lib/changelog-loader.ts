@@ -1,28 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import type { Loader } from 'astro/loaders';
-
-interface StrapiChangelogEntry {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: 'Release' | 'Update';
-  topic: string;
-  sourceUrl: string;
-  releasedAt: string;
-  body?: string | null;
-}
-
-interface ChangelogEntry {
-  id: string;
-  title: string;
-  excerpt: string;
-  category: 'Release' | 'Update';
-  topic: string;
-  sourceUrl: string;
-  publishedAt: string;
-  body?: string;
-}
+import type { ChangelogEntry, StrapiChangelogEntry } from '@/types/changelog';
 
 async function fetchFromStrapi(): Promise<ChangelogEntry[] | null> {
   const strapiUrl = (import.meta.env.STRAPI_URL ?? process.env.STRAPI_URL)?.replace(/\/$/, '');

@@ -1,6 +1,6 @@
 export const defaultLang = 'en' as const;
 
-export const ui = {
+export const text = {
   en: {
     // Nav
     'nav.plans':          'Plans & prices',
@@ -40,11 +40,11 @@ export const ui = {
     'contactForm.privacyPolicyLabel':   'Privacy Policy',
     'contactForm.privacyConsentAfter':  ' and give consent to Hypernode.com to store my submitted information.*',
     'contactForm.submit':               'Submit',
-    'contactForm.errors.required':      'Please complete this required field.',
+    'contactForm.errors.reqtextred':      'Please complete this reqtextred field.',
     'contactForm.errors.email':         'Please enter a valid email address.',
     'contactForm.errors.privacy':       'You must accept the privacy policy.',
     'contactForm.errors.captcha':       'Please complete the captcha.',
-    'contactForm.errors.allFields':     'Please complete all required fields.',
+    'contactForm.errors.allFields':     'Please complete all reqtextred fields.',
     'contactForm.errors.emailSuggestion': 'Did you mean ',
     // Coming soon page
     'comingSoon.title':        'Page under construction',
@@ -63,7 +63,7 @@ export const ui = {
     'pricing.tabs.cloudSubtitle':      'Cloud hosting plans',
     'pricing.tabs.dedicated':          'Dedicated',
     'pricing.tabs.dedicatedSubtitle':  'Dedicated hosting plans',
-    'pricing.tabs.unsureCopy':         'Not sure yet which hosting plan suits you best? Contact us for consultation.',
+    'pricing.tabs.unsureCopy':         'Not sure yet which hosting plan stextts you best? Contact us for consultation.',
     'pricing.tabs.consultCta':         'Start hosting consult',
     'pricing.tabs.cloudHeading':       'Cloud hosting pricing',
     'pricing.tabs.cloudIntro':         'Ideal for unpredictable traffic patterns. Cloud hosting provides maximum flexibility and scalability with data redundancy, virtual backups, fast recovery, and pay-as-you-go pricing.',
@@ -169,7 +169,7 @@ export const ui = {
     'contactForm.privacyPolicyLabel':   'Privacybeleid',
     'contactForm.privacyConsentAfter':  ' gelezen en geef toestemming aan Hypernode.com om mijn ingediende gegevens op te slaan.*',
     'contactForm.submit':               'Verzenden',
-    'contactForm.errors.required':      'Vul dit verplichte veld in.',
+    'contactForm.errors.reqtextred':      'Vul dit verplichte veld in.',
     'contactForm.errors.email':         'Voer een geldig e-mailadres in.',
     'contactForm.errors.privacy':       'U moet het privacybeleid accepteren.',
     'contactForm.errors.captcha':       'Voltooi de captcha.',
@@ -237,7 +237,7 @@ export const ui = {
     'footer.link.socialResponsibility':'Maatschappelijk verantwoord',
     'footer.link.blog':                'Blog',
     'footer.link.reportAbuse':         'Misbruik melden',
-    'footer.link.whistleblower':       'Klokkenluidersformulier',
+    'footer.link.whistleblower':       'Klokkenltextdersformulier',
     'footer.link.newsletter':          'Nieuwsbrief',
     'footer.link.phpExtSupport':       'PHP extended support',
     // Footer bottom sections
@@ -252,7 +252,7 @@ export const ui = {
     'footer.legal.disclosure':         'Responsible-disclosure-beleid',
     'footer.legal.cookies':            'Cookiebeleid',
     // FooterTeamblue chrome
-    'footer.teamblue.heading':         'maakt deel uit van team.blue, een familie van producten voor jouw online succes',
+    'footer.teamblue.heading':         'maakt deel textt van team.blue, een familie van producten voor jouw online succes',
     'footer.teamblue.tab.recommended': 'Aanbevolen',
     'footer.teamblue.tab.launch':      'Lanceer je website',
     'footer.teamblue.tab.reach':       'Bereik meer klanten',
@@ -260,9 +260,9 @@ export const ui = {
   },
 } as const;
 
-export type Lang = keyof typeof ui;
-export type TranslationKey = keyof typeof ui[typeof defaultLang];
+export type Lang = keyof typeof text;
+export type TranslationKey = keyof typeof text[typeof defaultLang];
 
 export function useTranslations(lang: Lang) {
-  return (key: TranslationKey): string => ui[lang][key];
+  return (key: TranslationKey): string => text[lang][key];
 }

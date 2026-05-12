@@ -1,5 +1,5 @@
-import { useTranslations, type Lang } from '@/i18n/ui';
-import type { PricingTabsLabels } from '@/components/pricing/PricingTabs';
+import { useTranslations, type Lang } from '@/i18n/text';
+import type { PricingTabsLabels } from '@/types/pricing';
 
 // Hardware-line section titles. These are brand/product names that stay
 // the same in every locale, so they are not part of the i18n dictionary.
