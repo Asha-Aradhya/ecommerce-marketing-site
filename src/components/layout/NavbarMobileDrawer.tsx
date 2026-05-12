@@ -10,15 +10,9 @@ interface NavLink {
 
 interface Props {
   navLinks: NavLink[];
-  langSwitchHref: string;
-  langSwitchLabel: string;
 }
 
-export default function NavbarMobileDrawer({
-  navLinks,
-  langSwitchHref,
-  langSwitchLabel,
-}: Props) {
+export default function NavbarMobileDrawer({ navLinks }: Props) {
   const [open, setOpen] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(0);
 
@@ -73,14 +67,6 @@ export default function NavbarMobileDrawer({
               </a>
             ))}
           </nav>
-          <div className="pt-6">
-            <a
-              href={langSwitchHref}
-              className="text-sm font-medium text-center block px-4 py-2.5 rounded border border-gray-300 text-navy-dark"
-            >
-              {langSwitchLabel}
-            </a>
-          </div>
         </div>
       )}
     </div>

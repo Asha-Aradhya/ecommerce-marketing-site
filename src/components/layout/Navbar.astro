@@ -62,12 +62,8 @@ const currentPath = Astro.url.pathname;
       ))}
     </nav>
 
-    <!-- Mobile drawer island -->
-    <NavbarMobileDrawer
-      client:load
-      navLinks={navLinks}
-      langSwitchHref={langSwitchHref}
-      langSwitchLabel={t('nav.langSwitch')}
-    />
+    <!-- Mobile drawer island. The language switch lives in the topbar above
+         and is always visible, so the drawer doesn't repeat it. -->
+    <NavbarMobileDrawer client:load navLinks={navLinks} />
   </div>
 </header>

@@ -160,8 +160,8 @@ export default function ChangelogFilter({ entries, topics }: Props) {
         </aside>
 
         <div>
-          <div className="mb-8 -mx-4 px-4 overflow-x-auto">
-            <ul className="flex gap-1.5 min-w-max items-end">
+          <div className="mb-8 -mx-4 px-4 md:overflow-x-auto">
+            <ul className="flex flex-wrap md:flex-nowrap gap-1.5 md:min-w-max items-end">
               {tabs.map((tab) => {
                 const isActive = activeTopic === tab;
                 return (
@@ -169,9 +169,9 @@ export default function ChangelogFilter({ entries, topics }: Props) {
                     <button
                       type="button"
                       onClick={() => setActiveTopic(tab)}
-                      className={`whitespace-nowrap px-4 lg:px-6 rounded-t-2xl font-bold text-sm text-navy-dark transition-all ${
+                      className={`whitespace-nowrap px-4 lg:px-6 rounded-2xl md:rounded-t-2xl md:rounded-b-none font-bold text-sm text-navy-dark transition-all ${
                         isActive
-                          ? 'bg-blue-pale py-4 md:py-5 shadow-[inset_0_-3px_0_0_var(--color-orange)]'
+                          ? 'bg-blue-pale py-3 md:py-5 shadow-[inset_0_-3px_0_0_var(--color-orange)]'
                           : 'bg-blue-pale/80 hover:bg-blue-pale py-3 md:py-4'
                       }`}
                     >

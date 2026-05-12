@@ -50,7 +50,7 @@ export const ui = {
     'comingSoon.title':        'Page under construction',
     'comingSoon.heading':      'This page is under construction',
     'comingSoon.body':         "We're still building this part of the site. Check back soon.",
-    'comingSoon.backHome':     'Back to home',
+    'comingSoon.back':         '← Back',
     // 404 page
     'notFound.title':          'Page not found',
     'notFound.heading':        'Page not found',
@@ -179,7 +179,7 @@ export const ui = {
     'comingSoon.title':        'Pagina in aanbouw',
     'comingSoon.heading':      'Deze pagina is in aanbouw',
     'comingSoon.body':         'We werken nog aan dit deel van de site. Kom snel terug.',
-    'comingSoon.backHome':     'Terug naar home',
+    'comingSoon.back':         '← Terug',
     // 404 page
     'notFound.title':          'Pagina niet gevonden',
     'notFound.heading':        'Pagina niet gevonden',

@@ -19,9 +19,10 @@ const t = useTranslations(lang);
     </p>
     <a
       href={t('nav.home.href')}
+      onclick="if (window.history.length > 1) { event.preventDefault(); window.history.back(); }"
       class="inline-block text-sm font-medium px-5 py-2.5 rounded bg-orange text-white hover:bg-orange-dark transition-colors"
     >
-      {t('comingSoon.backHome')}
+      {t('comingSoon.back')}
     </a>
   </main>
 </BaseLayout>
