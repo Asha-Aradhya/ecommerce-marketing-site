@@ -1,7 +1,7 @@
 import { defineCollection, type SchemaContext } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob, file } from 'astro/loaders';
-import { CHANGELOG_TOPICS } from '@/lib/changelog-topics';
+import { CHANGELOG_TOPICS } from '@/components/changelog/changelog-topics';
 import { changelogLoader } from '@/lib/changelog-loader';
 
 // Homepage

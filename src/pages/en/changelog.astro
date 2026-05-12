@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { CHANGELOG_TOPICS } from '@/lib/changelog-topics';
+import { CHANGELOG_TOPICS } from '@/components/changelog/changelog-topics';
 import ChangelogFilter from '@/components/sections/ChangelogFilter.tsx';
 
 const collectionEntries = (await getCollection('changelog-en')).sort(
