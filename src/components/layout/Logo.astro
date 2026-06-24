@@ -1,0 +1,45 @@
+---
+// Inline SVG wordmark for Cloudnode.
+// The cloud mark + wordmark use `currentColor`, so the logo inherits the
+// surrounding text color: navy in the navbar, white in the footer. The orange
+// spark is a fixed brand accent that reads on both light and dark backgrounds.
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 178 40"
+  role="img"
+  aria-label="Cloudnode"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class={className}
+>
+  <!-- Cloud mark -->
+  <g transform="translate(2 9)">
+    <path
+      d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96Z"
+      fill="currentColor"
+    />
+  </g>
+
+  <!-- Orange spark accent -->
+  <path
+    d="M28 2c.4 2.8 1.2 3.6 4 4-2.8.4-3.6 1.2-4 4-.4-2.8-1.2-3.6-4-4 2.8-.4 3.6-1.2 4-4Z"
+    fill="#FF7100"
+  />
+
+  <!-- Wordmark -->
+  <text
+    x="44"
+    y="27"
+    font-family="Montserrat, ui-sans-serif, system-ui, sans-serif"
+    font-size="22"
+    font-weight="700"
+    letter-spacing="0.2"
+    fill="currentColor"
+  >Cloudnode</text>
+</svg>

@@ -1,6 +1,5 @@
 ---
-import { Image } from 'astro:assets';
-import logoImg from '@assets/images/cloudnode-logo.png';
+import Logo from './Logo.astro';
 import NavbarMobileDrawer from './NavbarMobileDrawer.tsx';
 import { useTranslations, type Lang } from '@/i18n/text';
 
@@ -36,13 +35,8 @@ const currentPath = Astro.url.pathname;
   <!-- Main navbar -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
     <!-- Logo (left) -->
-    <a href={t('nav.home.href')} class="flex-shrink-0">
-      <Image
-        src={logoImg}
-        alt="Cloudnode"
-        height={36}
-        class="h-9 w-auto"
-      />
+    <a href={t('nav.home.href')} class="flex-shrink-0 text-navy-dark">
+      <Logo class="h-9 w-auto" />
     </a>
 
     <!-- Desktop nav links (right) -->
