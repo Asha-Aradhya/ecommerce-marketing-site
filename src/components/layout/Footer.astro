@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import logoImg from '@assets/images/hypernode-logo.png';
-import FooterTeamblue from './FooterTeamblue.tsx';
+import logoImg from '@assets/images/cloudnode-logo.png';
 import { useTranslations, type Lang } from '@/i18n/text';
 
 const lang = (Astro.currentLocale ?? 'en') as Lang;
@@ -69,13 +68,13 @@ const linkColumns = [
 const latestReleases = [
   { label: 'Release 11003: DirtyPipe Mitigation...', href: comingSoonHref },
   { label: 'Release 11002: CapyTrail (CVE-2026-3...)', href: comingSoonHref },
-  { label: 'Hypernode Insights: Magento Cross...', href: comingSoonHref },
+  { label: 'Cloudnode Insights: Magento Cross...', href: comingSoonHref },
   { label: 'Release 10770: MySQL Config Profile...', href: comingSoonHref },
-  { label: 'Hypernode Deploy v6.0', href: comingSoonHref },
+  { label: 'Cloudnode Deploy v6.0', href: comingSoonHref },
 ];
 
 const latestBlogs = [
-  { label: 'DirtyPipe Mitigations on Hypernode', href: comingSoonHref },
+  { label: 'DirtyPipe Mitigations on Cloudnode', href: comingSoonHref },
   { label: '6 Questions to Ask a Secure E-Commerce Hosting Pro...', href: comingSoonHref },
   { label: 'Why E-Commerce Security is Never "Finished"...', href: comingSoonHref },
   { label: 'How to Check if Your Webshop is Actually Secure...', href: comingSoonHref },
@@ -113,14 +112,6 @@ const socialLinks = [
   },
 ];
 
-const teamblueLabels = {
-  heading: t('footer.teamblue.heading'),
-  recommended: t('footer.teamblue.tab.recommended'),
-  launch: t('footer.teamblue.tab.launch'),
-  reach: t('footer.teamblue.tab.reach'),
-  optimize: t('footer.teamblue.tab.optimize'),
-  productHref: comingSoonHref,
-};
 ---
 
 <footer class="bg-[#113156] text-white [&_a]:no-underline">
@@ -129,7 +120,7 @@ const teamblueLabels = {
       <div class="lg:col-span-1">
         <Image
           src={logoImg}
-          alt="Hypernode by teamblue"
+          alt="Cloudnode"
           height={36}
           class="h-9 w-auto brightness-0 invert mb-6"
         />
@@ -202,8 +193,8 @@ const teamblueLabels = {
         <h3 class="text-white font-bold text-base mb-4">{t('footer.section.needHelp')}</h3>
         <ul class="space-y-2 text-sm">
           <li>
-            <a href="mailto:support@hypernode.com" class="text-orange hover:text-orange-dark transition-colors">
-              support@hypernode.com
+            <a href="mailto:support@cloudnode.com" class="text-orange hover:text-orange-dark transition-colors">
+              support@cloudnode.com
             </a>
           </li>
           <li class="text-white">+31 20 36 081274</li>
@@ -227,13 +218,11 @@ const teamblueLabels = {
         ))}
       </ul>
       <p class="text-white/70">
-        Support: +31 20 521 6226 | +44 20 3608 5874 | support@hypernode.com
+        Support: +31 20 521 6226 | +44 20 3608 5874 | support@cloudnode.com
       </p>
       <p class="text-white/70">
         KvK number: 06090748 | VAT number: NL821888080B01
       </p>
     </div>
   </div>
-
-  <FooterTeamblue labels={teamblueLabels} client:visible />
 </footer>

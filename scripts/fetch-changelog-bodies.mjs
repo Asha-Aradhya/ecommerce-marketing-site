@@ -1,5 +1,5 @@
 // One-shot script: fetches each changelog entry's full body from its
-// `sourceUrl` on changelog.hypernode.com, extracts the article HTML,
+// `sourceUrl` on changelog.cloudnode.com, extracts the article HTML,
 // converts it to Markdown, and writes it back into `strapi/seed.json`
 // as a `body` field. Re-run is safe — entries with an existing `body`
 // are skipped.

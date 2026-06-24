@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import logoImg from '@assets/images/hypernode-logo.png';
+import logoImg from '@assets/images/cloudnode-logo.png';
 import NavbarMobileDrawer from './NavbarMobileDrawer.tsx';
 import { useTranslations, type Lang } from '@/i18n/text';
 
@@ -39,7 +39,7 @@ const currentPath = Astro.url.pathname;
     <a href={t('nav.home.href')} class="flex-shrink-0">
       <Image
         src={logoImg}
-        alt="Hypernode by teamblue"
+        alt="Cloudnode"
         height={36}
         class="h-9 w-auto"
       />

@@ -89,7 +89,7 @@ STRAPI_TOKEN=<read-only API token, find + findOne permissions>
 
 Two one-shot CLI scripts in `scripts/` manage the changelog data pipeline:
 
-- **`scripts/fetch-changelog-bodies.mjs`** — brings data **IN** from `changelog.hypernode.com` → into your local `strapi/seed.json`. For each entry's `sourceUrl`, fetches the HTML, extracts the article body, converts to Markdown, writes it back as a `body` field. Run with: `node scripts/fetch-changelog-bodies.mjs`.
+- **`scripts/fetch-changelog-bodies.mjs`** — brings data **IN** from `changelog.cloudnode.com` → into your local `strapi/seed.json`. For each entry's `sourceUrl`, fetches the HTML, extracts the article body, converts to Markdown, writes it back as a `body` field. Run with: `node scripts/fetch-changelog-bodies.mjs`.
 
 - **`scripts/strapi-seed.mjs`** — pushes data **OUT** from your local `strapi/seed.json` → into a Strapi CMS instance. Idempotent (upserts by `sourceUrl`). Run with:
 
@@ -97,7 +97,7 @@ Two one-shot CLI scripts in `scripts/` manage the changelog data pipeline:
   STRAPI_URL=<strapi-url> STRAPI_TOKEN=<token-with-create-update-permissions> npm run strapi:seed
   ```
 
-Typical workflow: scrape Hypernode → fetch bodies into JSON → seed Strapi → site fetches from Strapi at build time.
+Typical workflow: scrape Cloudnode → fetch bodies into JSON → seed Strapi → site fetches from Strapi at build time.
 
 ## Deployment
 
@@ -135,6 +135,6 @@ A minimal `lighthouserc.json` to enforce the current baseline:
 
 - **Unit tests** — Vitest covering the changelog loader (Strapi-fetch path, fallback path, `releasedAt` → `publishedAt` mapping), the `/api/contact` Zod validator, and any data transformation utilities. Cheap to write, catches regressions when the Strapi schema or `seed.json` shape changes.
 - **Accessibility audit and remediation** — The current implementation uses semantic HTML, aria-labels on icon-only buttons, and `eslint-plugin-jsx-a11y` enforces basic rules in source. With more time I would run a formal audit using `@axe-core/playwright` against every page + every locale, plus manual screen-reader testing with VoiceOver and NVDA. Lighthouse's accessibility score is a heuristic; axe + manual is the real check.
-- **Storybook for the React islands** — `ChangelogFilter`, `PricingTabs`, `PricingTable`, `ContactForm`, `NavbarMobileDrawer`, `FooterTeamblue` each have multiple visual states (active tab, error state, empty filter, loading, etc.). A Storybook gives designers a stable URL to review components in isolation, and pairs naturally with visual-regression testing via Chromatic or Percy.
+- **Storybook for the React islands** — `ChangelogFilter`, `PricingTabs`, `PricingTable`, `ContactForm`, `NavbarMobileDrawer` each have multiple visual states (active tab, error state, empty filter, loading, etc.). A Storybook gives designers a stable URL to review components in isolation, and pairs naturally with visual-regression testing via Chromatic or Percy.
 - **Integration tests** — Playwright covering the critical user flows: homepage loads in both locales, language toggle round-trips, changelog filter narrows entries by year + topic + search, pricing toggles update prices, contact form submits successfully and renders server-side errors when validation fails. Run in CI on every PR against the preview deploy URL — same target as Lighthouse CI above, same dependencies.
 

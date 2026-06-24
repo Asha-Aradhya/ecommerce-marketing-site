@@ -3,7 +3,7 @@ export const CHANGELOG_TOPICS = [
   'Autoscaling',
   'Cluster',
   'Control panel',
-  'Hypernode Deploy',
+  'Cloudnode Deploy',
   'Insights',
   'MageReport',
   'Platform',

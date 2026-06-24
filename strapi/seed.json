@@ -1,33 +1,33 @@
 [
   {
-    "id": "release-10641-opensearch-3-3-available-on-hypernode",
-    "title": "Release 10641: OpenSearch 3.3 Available on Hypernode",
-    "excerpt": "We’re pleased to announce that OpenSearch 3.3 is now available on Hypernode for Debian Bookworm! 🎉 After a period of internal testing, this version is now available to all Hypernodes. If you want to upgrade your node to use OpenSearch 3.3, you can do so by running the following command: app@abcdef-example-magweb-cmbl:~$ hypernode-systemctl settings opensearch_version 3.3…",
+    "id": "release-10641-opensearch-3-3-available-on-cloudnode",
+    "title": "Release 10641: OpenSearch 3.3 Available on Cloudnode",
+    "excerpt": "We’re pleased to announce that OpenSearch 3.3 is now available on Cloudnode for Debian Bookworm! 🎉 After a period of internal testing, this version is now available to all Cloudnodes. If you want to upgrade your node to use OpenSearch 3.3, you can do so by running the following command: app@abcdef-example-magweb-cmbl:~$ cloudnode-systemctl settings opensearch_version 3.3…",
     "category": "Release",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/release-10641-opensearch-3-3-available-on-hypernode/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10641-opensearch-3-3-available-on-cloudnode/",
     "publishedAt": "2026-05-09",
-    "body": "We’re pleased to announce that OpenSearch 3.3 is now available on Hypernode for Debian Bookworm! 🎉\n\nAfter a period of internal testing, this version is now available to all Hypernodes. If you want to upgrade your node to use OpenSearch 3.3, you can do so by running the following command:\n\n```\napp@abcdef-example-magweb-cmbl:~$ hypernode-systemctl settings opensearch_version 3.3\r\nOperation was successful and is being processed. Please allow a few minutes for the settings to be applied. Run 'livelog' to see the progress.\n```\n\nAs always, we recommend reviewing the OpenSearch 3.3 release notes to understand what’s new and whether any breaking changes apply to your setup.\n\nLet us know if you run into any issues or have questions via our support."
+    "body": "We’re pleased to announce that OpenSearch 3.3 is now available on Cloudnode for Debian Bookworm! 🎉\n\nAfter a period of internal testing, this version is now available to all Cloudnodes. If you want to upgrade your node to use OpenSearch 3.3, you can do so by running the following command:\n\n```\napp@abcdef-example-magweb-cmbl:~$ cloudnode-systemctl settings opensearch_version 3.3\r\nOperation was successful and is being processed. Please allow a few minutes for the settings to be applied. Run 'livelog' to see the progress.\n```\n\nAs always, we recommend reviewing the OpenSearch 3.3 release notes to understand what’s new and whether any breaking changes apply to your setup.\n\nLet us know if you run into any issues or have questions via our support."
   },
   {
-    "id": "version-4-6-0-has-been-released-for-hypernode-deploy",
-    "title": "Release 10636: Version 4.6.0 has been released for Hypernode Deploy",
-    "excerpt": "We now share that Hypernode Deploy v4.6.0 has been released, when you are using our :latest-phpX.X-nodeX image tags, this will automatically be applied to your next deployments. Some notable changes includes te following. Task tree view The Hypernode Deploy CLI now includes a simple tree-view command that shows all registered deployment tasks in a…",
+    "id": "version-4-6-0-has-been-released-for-cloudnode-deploy",
+    "title": "Release 10636: Version 4.6.0 has been released for Cloudnode Deploy",
+    "excerpt": "We now share that Cloudnode Deploy v4.6.0 has been released, when you are using our :latest-phpX.X-nodeX image tags, this will automatically be applied to your next deployments. Some notable changes includes te following. Task tree view The Cloudnode Deploy CLI now includes a simple tree-view command that shows all registered deployment tasks in a…",
     "category": "Release",
-    "topic": "Hypernode Deploy",
-    "sourceUrl": "https://changelog.hypernode.com/version-4-6-0-has-been-released-for-hypernode-deploy/",
+    "topic": "Cloudnode Deploy",
+    "sourceUrl": "https://changelog.cloudnode.com/version-4-6-0-has-been-released-for-cloudnode-deploy/",
     "publishedAt": "2026-05-02",
-    "body": "We now share that Hypernode Deploy v4.6.0 has been released, when you are using our `:latest-phpX.X-nodeX` image tags, this will automatically be applied to your next deployments. Some notable changes includes te following.\n\n### Task tree view\n\nThe Hypernode Deploy CLI now includes a simple **tree-view command** that shows all registered deployment tasks in a clear, structured way. By running `hypernode-deploy tree build` and `hypernode-deploy tree deploy`, you can quickly see which tasks run, how they are grouped, and in what order they execute, including before and after hooks. This makes it much easier to understand and troubleshoot your deployment process.\n\nExample output is:\n\n```\n$ hypernode-deploy tree build\r\n└── build\r\n├── deploy:info\r\n├── prepare:ssh\r\n├── build:compile:prepare // before build:compile\r\n├── deploy:vendors:auth // after build:compile:prepare\r\n├── build:compile\r\n│ ├── build:compile:prepare\r\n│ ├── deploy:vendors:auth // after build:compile:prepare\r\n│ ├── deploy:vendors\r\n│ ├── magento:compile\r\n│ ├── magento:sync:content_version // before magento:deploy:assets\r\n│ ├── magento:deploy:assets\r\n│ └── magento:deploy:assets:custom\r\n└── build:package\n```\n\n### Individual Magento theme-locale combinations\n\nYou can now configure **theme-locale combinations individually** to reduce theme compile time. This is especially useful when you have many store views but only use specific themes for specific locales. By limiting which locales are compiled per theme, unnecessary compilation steps are skipped, resulting in faster builds. This can be done with the following snippet in your deploy.php:\n\n```\n$configuration = new ApplicationTemplate\\Magento2([]);\r\n$configuration->setMagentoThemes([\r\n  'Magento/luma' => 'nl_NL en_US',\r\n  'Hyva/theme' => 'nl_NL en_US de_DE'\r\n]);\n```\n\n### Miscellaneous\n\n- We have now switched to the debian-slim variant of the baseimage to minimize the deployment image, which will save about ~17% in image size during runtime.\n\n- ApplicationTemplates for WordPress and Laravel are now included in Hypernode Deploy.\n\nFor all changes and codediffs in the new versions, please head over to our repositories [hypernode-deploy v4.6.0](https://github.com/ByteInternet/hypernode-deploy/releases/tag/4.6.0) and [hypernode-deploy-configuration v3.5.0](https://github.com/ByteInternet/hypernode-deploy-configuration/releases/tag/3.5.0). Contributions are welcome!"
+    "body": "We now share that Cloudnode Deploy v4.6.0 has been released, when you are using our `:latest-phpX.X-nodeX` image tags, this will automatically be applied to your next deployments. Some notable changes includes te following.\n\n### Task tree view\n\nThe Cloudnode Deploy CLI now includes a simple **tree-view command** that shows all registered deployment tasks in a clear, structured way. By running `cloudnode-deploy tree build` and `cloudnode-deploy tree deploy`, you can quickly see which tasks run, how they are grouped, and in what order they execute, including before and after hooks. This makes it much easier to understand and troubleshoot your deployment process.\n\nExample output is:\n\n```\n$ cloudnode-deploy tree build\r\n└── build\r\n├── deploy:info\r\n├── prepare:ssh\r\n├── build:compile:prepare // before build:compile\r\n├── deploy:vendors:auth // after build:compile:prepare\r\n├── build:compile\r\n│ ├── build:compile:prepare\r\n│ ├── deploy:vendors:auth // after build:compile:prepare\r\n│ ├── deploy:vendors\r\n│ ├── magento:compile\r\n│ ├── magento:sync:content_version // before magento:deploy:assets\r\n│ ├── magento:deploy:assets\r\n│ └── magento:deploy:assets:custom\r\n└── build:package\n```\n\n### Individual Magento theme-locale combinations\n\nYou can now configure **theme-locale combinations individually** to reduce theme compile time. This is especially useful when you have many store views but only use specific themes for specific locales. By limiting which locales are compiled per theme, unnecessary compilation steps are skipped, resulting in faster builds. This can be done with the following snippet in your deploy.php:\n\n```\n$configuration = new ApplicationTemplate\\Magento2([]);\r\n$configuration->setMagentoThemes([\r\n  'Magento/luma' => 'nl_NL en_US',\r\n  'Hyva/theme' => 'nl_NL en_US de_DE'\r\n]);\n```\n\n### Miscellaneous\n\n- We have now switched to the debian-slim variant of the baseimage to minimize the deployment image, which will save about ~17% in image size during runtime.\n\n- ApplicationTemplates for WordPress and Laravel are now included in Cloudnode Deploy.\n\nFor all changes and codediffs in the new versions, please head over to our repositories [cloudnode-deploy v4.6.0](https://github.com/ByteInternet/cloudnode-deploy/releases/tag/4.6.0) and [cloudnode-deploy-configuration v3.5.0](https://github.com/ByteInternet/cloudnode-deploy-configuration/releases/tag/3.5.0). Contributions are welcome!"
   },
   {
     "id": "release-10588-managed-magerun2-versions-now-include-9x",
     "title": "Release 10588: Managed magerun2 versions now includes 9.x",
-    "excerpt": "We are now introducing support for managed n98-magerun2 versions up to 9.x. Previously, Hypernode defaulted to n98-magerun2 8.x, now it will default to 9.x. It is now possible to switch to the n98-magerun2 version (or older) on a Hypernode with: app@node:~$ hypernode-systemctl settings |& grep magerun2_version magerun2_version [‘3.x’, ‘4.x’, ‘5.x’, ‘6.x’, ‘7.x’, ‘8.x’, ‘9.x’, ‘latest’]…",
+    "excerpt": "We are now introducing support for managed n98-magerun2 versions up to 9.x. Previously, Cloudnode defaulted to n98-magerun2 8.x, now it will default to 9.x. It is now possible to switch to the n98-magerun2 version (or older) on a Cloudnode with: app@node:~$ cloudnode-systemctl settings |& grep magerun2_version magerun2_version [‘3.x’, ‘4.x’, ‘5.x’, ‘6.x’, ‘7.x’, ‘8.x’, ‘9.x’, ‘latest’]…",
     "category": "Release",
     "topic": "MageReport",
-    "sourceUrl": "https://changelog.hypernode.com/release-10588-managed-magerun2-versions-now-include-9x/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10588-managed-magerun2-versions-now-include-9x/",
     "publishedAt": "2026-04-25",
-    "body": "We are now introducing support for managed n98-magerun2 versions up to 9.x.\n\nPreviously, Hypernode defaulted to n98-magerun2 8.x, now it will default to 9.x.\n\nIt is now possible to switch to the n98-magerun2 version (or older) on a Hypernode with:\n\n```\napp@node:~$ hypernode-systemctl settings |& grep magerun2_version\r\nmagerun2_version ['3.x', '4.x', '5.x', '6.x', '7.x', '8.x', '9.x', 'latest']\r\n\r\napp@node:~$ hypernode-systemctl settings magerun2_version 9.x\n```"
+    "body": "We are now introducing support for managed n98-magerun2 versions up to 9.x.\n\nPreviously, Cloudnode defaulted to n98-magerun2 8.x, now it will default to 9.x.\n\nIt is now possible to switch to the n98-magerun2 version (or older) on a Cloudnode with:\n\n```\napp@node:~$ cloudnode-systemctl settings |& grep magerun2_version\r\nmagerun2_version ['3.x', '4.x', '5.x', '6.x', '7.x', '8.x', '9.x', 'latest']\r\n\r\napp@node:~$ cloudnode-systemctl settings magerun2_version 9.x\n```"
   },
   {
     "id": "release-10565-podman-compose-updated-to-1-5-0",
@@ -35,19 +35,19 @@
     "excerpt": "We have updated podman-compose from version 1.2.0 to 1.5.0, which is the latest version available at the time of writing. The update includes many features, improvements and bug fixes for orchestrating Podman containers on your server. To find out what has been improved, check out the release notes.",
     "category": "Release",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/release-10565-podman-compose-updated-to-1-5-0/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10565-podman-compose-updated-to-1-5-0/",
     "publishedAt": "2026-04-18",
     "body": "We have updated podman-compose from version **1.2.0** to **1.5.0**, which is the latest version available at the time of writing.\n\nThe update includes many features, improvements and bug fixes for orchestrating Podman containers on your server.\n\nTo find out what has been improved, check out [the release notes](https://github.com/containers/podman-compose/releases)."
   },
   {
-    "id": "release-10564-valkey-8-now-available-at-hypernode",
-    "title": "Release 10564: Valkey 8 now available at Hypernode",
-    "excerpt": "With this release, we’ve added support for Valkey 8.x to the Hypernode platform! Valkey is a drop-in replacement for Redis and supported by the latest Magento releases. Using Valkey on Hypernode Switching from Redis to Valkey on Hypernode isn’t very exciting, you just need to set the setting valkey_enabled to True. app@abcdef-example-magweb-cmbl:~$ hypernode-systemctl settings valkey_enabled…",
+    "id": "release-10564-valkey-8-now-available-at-cloudnode",
+    "title": "Release 10564: Valkey 8 now available at Cloudnode",
+    "excerpt": "With this release, we’ve added support for Valkey 8.x to the Cloudnode platform! Valkey is a drop-in replacement for Redis and supported by the latest Magento releases. Using Valkey on Cloudnode Switching from Redis to Valkey on Cloudnode isn’t very exciting, you just need to set the setting valkey_enabled to True. app@abcdef-example-magweb-cmbl:~$ cloudnode-systemctl settings valkey_enabled…",
     "category": "Release",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/release-10564-valkey-8-now-available-at-hypernode/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10564-valkey-8-now-available-at-cloudnode/",
     "publishedAt": "2026-04-11",
-    "body": "With this release, we’ve added support for Valkey 8.x to the Hypernode platform!\n\nValkey is a drop-in replacement for Redis and supported by the latest Magento releases.\n\n**Using Valkey on Hypernode**\n\nSwitching from Redis to Valkey on Hypernode isn’t very exciting, you just need to set the setting **valkey_enabled** to **True**.\n\n`app@abcdef-example-magweb-cmbl:~$ hypernode-systemctl settings valkey_enabled true`\n\nLet us know if you run into any issues or have questions via our support channels."
+    "body": "With this release, we’ve added support for Valkey 8.x to the Cloudnode platform!\n\nValkey is a drop-in replacement for Redis and supported by the latest Magento releases.\n\n**Using Valkey on Cloudnode**\n\nSwitching from Redis to Valkey on Cloudnode isn’t very exciting, you just need to set the setting **valkey_enabled** to **True**.\n\n`app@abcdef-example-magweb-cmbl:~$ cloudnode-systemctl settings valkey_enabled true`\n\nLet us know if you run into any issues or have questions via our support channels."
   },
   {
     "id": "release-10553-phpmyadmin-disabled-by-default",
@@ -55,107 +55,107 @@
     "excerpt": "With this release, we are rolling out some security measures on the platform. phpMyAdmin has been a feature we’ve had available out of the box for a long time, but now we have decided to disable it by default. If you want to keep using phpMyAdmin, you can read the steps described in How to…",
     "category": "Release",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/release-10553-phpmyadmin-disabled-by-default/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10553-phpmyadmin-disabled-by-default/",
     "publishedAt": "2026-04-04",
-    "body": "With this release, we are rolling out some security measures on the platform.\n\nphpMyAdmin has been a feature we’ve had available out of the box for a long time, but now we have decided to **disable it by default**.\n\nIf you want to keep using phpMyAdmin, you can read the steps described in [How to Use PHPMyAdmin](https://docs.hypernode.com/hypernode-platform/mysql/how-to-use-phpmyadmin.html)."
+    "body": "With this release, we are rolling out some security measures on the platform.\n\nphpMyAdmin has been a feature we’ve had available out of the box for a long time, but now we have decided to **disable it by default**.\n\nIf you want to keep using phpMyAdmin, you can read the steps described in [How to Use PHPMyAdmin](https://docs.cloudnode.com/cloudnode-platform/mysql/how-to-use-phpmyadmin.html)."
   },
   {
-    "id": "node-js-v24-now-available-at-hypernode",
-    "title": "Node.js v24 Now Available at Hypernode",
-    "excerpt": "We’re pleased to announce that Node.js 24 is supported and available for all Hypernode customers using Debian Bookworm! You can enable Node.js v24 easily on your Hypernbode by running the following command: app@abcdef-example-magweb-cmbl:~$ hypernode-systemctl settings nodejs_version 24 Let us know if you run into any issues or have questions via our support channels.",
+    "id": "node-js-v24-now-available-at-cloudnode",
+    "title": "Node.js v24 Now Available at Cloudnode",
+    "excerpt": "We’re pleased to announce that Node.js 24 is supported and available for all Cloudnode customers using Debian Bookworm! You can enable Node.js v24 easily on your Hypernbode by running the following command: app@abcdef-example-magweb-cmbl:~$ cloudnode-systemctl settings nodejs_version 24 Let us know if you run into any issues or have questions via our support channels.",
     "category": "Update",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/node-js-v24-now-available-at-hypernode/",
+    "sourceUrl": "https://changelog.cloudnode.com/node-js-v24-now-available-at-cloudnode/",
     "publishedAt": "2026-03-28",
-    "body": "We’re pleased to announce that Node.js 24 is supported and available for all Hypernode customers using Debian Bookworm!\n\nYou can enable Node.js v24 easily on your Hypernbode by running the following command:\n\n`app@abcdef-example-magweb-cmbl:~$ hypernode-systemctl settings nodejs_version 24`\n\nLet us know if you run into any issues or have questions via our support channels."
+    "body": "We’re pleased to announce that Node.js 24 is supported and available for all Cloudnode customers using Debian Bookworm!\n\nYou can enable Node.js v24 easily on your Hypernbode by running the following command:\n\n`app@abcdef-example-magweb-cmbl:~$ cloudnode-systemctl settings nodejs_version 24`\n\nLet us know if you run into any issues or have questions via our support channels."
   },
   {
-    "id": "mysql-8-4-now-supported-on-hypernode",
-    "title": "MySQL 8.4 Now Supported on Hypernode",
-    "excerpt": "We’re excited to announce that MySQL 8.4 is now supported on Hypernode for Debian Bookworm! What’s New MySQL 8.4 support across the Hypernode platform and API. Authentication plugin checks for MySQL users: If any users are using unsupported auth plugins (anything other than caching_sha2_password), the upgrade will be not be possible. Upgrading to 8.4 is…",
+    "id": "mysql-8-4-now-supported-on-cloudnode",
+    "title": "MySQL 8.4 Now Supported on Cloudnode",
+    "excerpt": "We’re excited to announce that MySQL 8.4 is now supported on Cloudnode for Debian Bookworm! What’s New MySQL 8.4 support across the Cloudnode platform and API. Authentication plugin checks for MySQL users: If any users are using unsupported auth plugins (anything other than caching_sha2_password), the upgrade will be not be possible. Upgrading to 8.4 is…",
     "category": "Update",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/mysql-8-4-now-supported-on-hypernode/",
+    "sourceUrl": "https://changelog.cloudnode.com/mysql-8-4-now-supported-on-cloudnode/",
     "publishedAt": "2026-03-21",
-    "body": "We’re excited to announce that MySQL 8.4 is now supported on Hypernode for Debian Bookworm!\n\n#### **What’s New**\n\n-\n\n**MySQL 8.4 support** across the Hypernode platform and API.\n\n-\n\n**Authentication plugin checks for MySQL users**:\n\nIf any users are using unsupported auth plugins (anything other than `caching_sha2_password`), the upgrade will be not be possible.\n\n-\n\nUpgrading to 8.4 is only supported **from MySQL 8.0**.\n\n#### How to upgrade\n\nUpgrading your database to MySQL 8.4 can be done easily on your Hypernode. Simply run the command `hypernode-systemctl settings mysql_version 8.4` and our automated systems will make sure that the given version is installed. Make sure to use the `livelog` command to check the progress on the update job.\n\nNote that upgrading to MySQL 8.4 is only possible from MySQL8.0. If you’re not using this version yet, then you can use the following command to upgrade to version 8.0 first: `hypernode-systemctl settings mysql_version 8.0`.\n\n[How to Upgrade Your MySQL Version](https://docs.hypernode.com/hypernode-platform/mysql/how-to-use-mysql-on-hypernode.html#how-to-upgrade-your-mysql-version)\n\nIf any users are using unsupported auth plugins (anything other than `caching_sha2_password`), the upgrade will not be possible.\n\n[Changing the Authentication Plugin for a Custom MySQL User](https://docs.hypernode.com/hypernode-platform/mysql/how-to-use-mysql-on-hypernode.html#changing-the-authentication-plugin-for-a-custom-mysql-user)\n\n#### New Features in MySQL 8.4\n\n-\n\n**Default deprecation of **`mysql_native_password` – It’s no longer enabled by default.\n\n-\n\n**Improved InnoDB defaults** for performance and scalability (e.g. `innodb_io_capacity`, `innodb_log_buffer_size`, NUMA interleaving).\n\n-\n\n**Clone plugin now allows cross-patch version cloning** (e.g. from 8.4.0 to 8.4.14).\n\n-\n\n**Group Replication improvements**, including more robust DDL tracking and memory usage instrumentation.\n\n-\n\n**New privileges**:\n\n`FLUSH_PRIVILEGES` (granular control over privilege flush operations)\n\n-\n\n`OPTIMIZE_LOCAL_TABLE` (required for local table optimizations)\n\n-\n\n**Automatic histogram updates** for better query planning.\n\n-\n\n**Better shutdown and startup logging**, including plugin/component lifecycle tracking.\n\n-\n\n**TLS certificate enforcement option** (`tls-certificates-enforced-validation`)\n\nLet us know if you run into any issues or have questions via our support."
+    "body": "We’re excited to announce that MySQL 8.4 is now supported on Cloudnode for Debian Bookworm!\n\n#### **What’s New**\n\n-\n\n**MySQL 8.4 support** across the Cloudnode platform and API.\n\n-\n\n**Authentication plugin checks for MySQL users**:\n\nIf any users are using unsupported auth plugins (anything other than `caching_sha2_password`), the upgrade will be not be possible.\n\n-\n\nUpgrading to 8.4 is only supported **from MySQL 8.0**.\n\n#### How to upgrade\n\nUpgrading your database to MySQL 8.4 can be done easily on your Cloudnode. Simply run the command `cloudnode-systemctl settings mysql_version 8.4` and our automated systems will make sure that the given version is installed. Make sure to use the `livelog` command to check the progress on the update job.\n\nNote that upgrading to MySQL 8.4 is only possible from MySQL8.0. If you’re not using this version yet, then you can use the following command to upgrade to version 8.0 first: `cloudnode-systemctl settings mysql_version 8.0`.\n\n[How to Upgrade Your MySQL Version](https://docs.cloudnode.com/cloudnode-platform/mysql/how-to-use-mysql-on-cloudnode.html#how-to-upgrade-your-mysql-version)\n\nIf any users are using unsupported auth plugins (anything other than `caching_sha2_password`), the upgrade will not be possible.\n\n[Changing the Authentication Plugin for a Custom MySQL User](https://docs.cloudnode.com/cloudnode-platform/mysql/how-to-use-mysql-on-cloudnode.html#changing-the-authentication-plugin-for-a-custom-mysql-user)\n\n#### New Features in MySQL 8.4\n\n-\n\n**Default deprecation of **`mysql_native_password` – It’s no longer enabled by default.\n\n-\n\n**Improved InnoDB defaults** for performance and scalability (e.g. `innodb_io_capacity`, `innodb_log_buffer_size`, NUMA interleaving).\n\n-\n\n**Clone plugin now allows cross-patch version cloning** (e.g. from 8.4.0 to 8.4.14).\n\n-\n\n**Group Replication improvements**, including more robust DDL tracking and memory usage instrumentation.\n\n-\n\n**New privileges**:\n\n`FLUSH_PRIVILEGES` (granular control over privilege flush operations)\n\n-\n\n`OPTIMIZE_LOCAL_TABLE` (required for local table optimizations)\n\n-\n\n**Automatic histogram updates** for better query planning.\n\n-\n\n**Better shutdown and startup logging**, including plugin/component lifecycle tracking.\n\n-\n\n**TLS certificate enforcement option** (`tls-certificates-enforced-validation`)\n\nLet us know if you run into any issues or have questions via our support."
   },
   {
-    "id": "ssh-firewall-allowlist-now-available-on-hypernode",
-    "title": "SSH Firewall Allowlist Now Available on Hypernode",
-    "excerpt": "We’ve added support for SSH firewalls on Hypernode! This new feature lets you restrict SSH access to specific IP addresses, adding an important layer of security to your server. Important: Unlike our other allowlists (for FTP, WAF, and database), SSH is open to the entire internet by default. As soon as you add an SSH…",
+    "id": "ssh-firewall-allowlist-now-available-on-cloudnode",
+    "title": "SSH Firewall Allowlist Now Available on Cloudnode",
+    "excerpt": "We’ve added support for SSH firewalls on Cloudnode! This new feature lets you restrict SSH access to specific IP addresses, adding an important layer of security to your server. Important: Unlike our other allowlists (for FTP, WAF, and database), SSH is open to the entire internet by default. As soon as you add an SSH…",
     "category": "Update",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/ssh-firewall-allowlist-now-available-on-hypernode/",
+    "sourceUrl": "https://changelog.cloudnode.com/ssh-firewall-allowlist-now-available-on-cloudnode/",
     "publishedAt": "2026-03-14",
-    "body": "We’ve added support for **SSH firewalls** on Hypernode! This new feature lets you restrict SSH access to specific IP addresses, adding an important layer of security to your server.\n\n**Important:** Unlike our other allowlists (for FTP, WAF, and database), SSH is open to the entire internet by default. **As soon as you add an SSH allowlist entry, SSH access will be restricted to only the IPs you’ve added** – all others will be blocked.\n\nTo allow access for your current IP via SSH, run:\n\n```\nhypernode-systemctl whitelist add --description \"My IP\" ssh 1.2.3.4\r\n\r\nYou can manage allowlist entries via the CLI or the Hypernode control panel.\n```\n\n📚 Learn more about how the SSH firewall works, and how it differs from other firewall types in our documentation:\n\n[https://docs.hypernode.com/best-practices/firewall/ssh-allowlist.html](https://docs.hypernode.com/best-practices/firewall/ssh-allowlist.html)\n\nMake sure to add your own correct IP addresses before applying SSH allowlist rules — otherwise, you may lock yourself out."
+    "body": "We’ve added support for **SSH firewalls** on Cloudnode! This new feature lets you restrict SSH access to specific IP addresses, adding an important layer of security to your server.\n\n**Important:** Unlike our other allowlists (for FTP, WAF, and database), SSH is open to the entire internet by default. **As soon as you add an SSH allowlist entry, SSH access will be restricted to only the IPs you’ve added** – all others will be blocked.\n\nTo allow access for your current IP via SSH, run:\n\n```\ncloudnode-systemctl whitelist add --description \"My IP\" ssh 1.2.3.4\r\n\r\nYou can manage allowlist entries via the CLI or the Cloudnode control panel.\n```\n\n📚 Learn more about how the SSH firewall works, and how it differs from other firewall types in our documentation:\n\n[https://docs.cloudnode.com/best-practices/firewall/ssh-allowlist.html](https://docs.cloudnode.com/best-practices/firewall/ssh-allowlist.html)\n\nMake sure to add your own correct IP addresses before applying SSH allowlist rules — otherwise, you may lock yourself out."
   },
   {
-    "id": "opensearch-2-19-now-supported-on-hypernode",
-    "title": "OpenSearch 2.19 Now Supported on Hypernode",
-    "excerpt": "We’re pleased to announce that OpenSearch 2.19 is now fully supported on Hypernode for Debian Bookworm! 🎉 After a period of internal testing, this version is now available to all Hypernodes. If you want to upgrade your node to use OpenSearch 2.19, you can do so by running the following command: app@abcdef-example-magweb-cmbl:~$ hypernode-systemctl settings opensearch_version…",
+    "id": "opensearch-2-19-now-supported-on-cloudnode",
+    "title": "OpenSearch 2.19 Now Supported on Cloudnode",
+    "excerpt": "We’re pleased to announce that OpenSearch 2.19 is now fully supported on Cloudnode for Debian Bookworm! 🎉 After a period of internal testing, this version is now available to all Cloudnodes. If you want to upgrade your node to use OpenSearch 2.19, you can do so by running the following command: app@abcdef-example-magweb-cmbl:~$ cloudnode-systemctl settings opensearch_version…",
     "category": "Update",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/opensearch-2-19-now-supported-on-hypernode/",
+    "sourceUrl": "https://changelog.cloudnode.com/opensearch-2-19-now-supported-on-cloudnode/",
     "publishedAt": "2026-03-07",
-    "body": "We’re pleased to announce that OpenSearch 2.19 is now fully supported on Hypernode for Debian Bookworm! 🎉\n\nAfter a period of internal testing, this version is now available to all Hypernodes. If you want to upgrade your node to use OpenSearch 2.19, you can do so by running the following command:\n\n```\napp@abcdef-example-magweb-cmbl:~$ hypernode-systemctl settings opensearch_version 2.19\r\nOperation was successful and is being processed. Please allow a few minutes for the settings to be applied. Run 'livelog' to see the progress.\n```\n\nAs always, we recommend reviewing the [OpenSearch 2.19 release notes](https://opensearch.org/blog/explore-opensearch-2-19/) to understand what’s new and whether any breaking changes apply to your setup.\n\nLet us know if you run into any issues or have questions via our support."
+    "body": "We’re pleased to announce that OpenSearch 2.19 is now fully supported on Cloudnode for Debian Bookworm! 🎉\n\nAfter a period of internal testing, this version is now available to all Cloudnodes. If you want to upgrade your node to use OpenSearch 2.19, you can do so by running the following command:\n\n```\napp@abcdef-example-magweb-cmbl:~$ cloudnode-systemctl settings opensearch_version 2.19\r\nOperation was successful and is being processed. Please allow a few minutes for the settings to be applied. Run 'livelog' to see the progress.\n```\n\nAs always, we recommend reviewing the [OpenSearch 2.19 release notes](https://opensearch.org/blog/explore-opensearch-2-19/) to understand what’s new and whether any breaking changes apply to your setup.\n\nLet us know if you run into any issues or have questions via our support."
   },
   {
     "id": "release-10423-node-js-v22-now-available-on-debian-bookworm",
     "title": "Release 10423: Node.js v22 Now Available on Debian Bookworm",
-    "excerpt": "We’re happy to announce that Node.js v22 is now supported and available for all customers using Debian Bookworm! You can enable Node.js v22 on your Debian Bookworm instance using the following command: app@abcdef-example-magweb-cmbl:~$ hypernode-systemctl settings nodejs_version 22",
+    "excerpt": "We’re happy to announce that Node.js v22 is now supported and available for all customers using Debian Bookworm! You can enable Node.js v22 on your Debian Bookworm instance using the following command: app@abcdef-example-magweb-cmbl:~$ cloudnode-systemctl settings nodejs_version 22",
     "category": "Release",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/release-10423-node-js-v22-now-available-on-debian-bookworm/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10423-node-js-v22-now-available-on-debian-bookworm/",
     "publishedAt": "2026-02-28",
-    "body": "We’re happy to announce that Node.js v22 is now supported and available for all customers using Debian Bookworm!\n\nYou can enable Node.js v22 on your Debian Bookworm instance using the following command:\n\n```\napp@abcdef-example-magweb-cmbl:~$ hypernode-systemctl settings nodejs_version 22\n```"
+    "body": "We’re happy to announce that Node.js v22 is now supported and available for all customers using Debian Bookworm!\n\nYou can enable Node.js v22 on your Debian Bookworm instance using the following command:\n\n```\napp@abcdef-example-magweb-cmbl:~$ cloudnode-systemctl settings nodejs_version 22\n```"
   },
   {
-    "id": "hypernode-deploy-v4-2-0",
-    "title": "Hypernode Deploy v4.2.0",
-    "excerpt": "Hypernode Deploy v4.2.0 is here with several improvements and refinements to enhance your deployment experience, most feedback coming straight from our users! Improved Docker Image Support NPM Preinstalled in Docker Builds: When building a Docker image, NPM is now automatically installed, ensuring a smoother experience when working with Node.js dependencies. This was a known bug…",
+    "id": "cloudnode-deploy-v4-2-0",
+    "title": "Cloudnode Deploy v4.2.0",
+    "excerpt": "Cloudnode Deploy v4.2.0 is here with several improvements and refinements to enhance your deployment experience, most feedback coming straight from our users! Improved Docker Image Support NPM Preinstalled in Docker Builds: When building a Docker image, NPM is now automatically installed, ensuring a smoother experience when working with Node.js dependencies. This was a known bug…",
     "category": "Release",
-    "topic": "Hypernode Deploy",
-    "sourceUrl": "https://changelog.hypernode.com/hypernode-deploy-v4-2-0/",
+    "topic": "Cloudnode Deploy",
+    "sourceUrl": "https://changelog.cloudnode.com/cloudnode-deploy-v4-2-0/",
     "publishedAt": "2026-02-21",
-    "body": "Hypernode Deploy v4.2.0 is here with several improvements and refinements to enhance your deployment experience, most feedback coming straight from our users!\n\n## **Improved Docker Image Support**\n\n- **NPM Preinstalled in Docker Builds:** When building a Docker image, NPM is now automatically installed, ensuring a smoother experience when working with Node.js dependencies. This was a known bug in older (below 20) NodeJS versions.\n\n- **New Docker Image Variants:** Added support for `:latest-phpX.X-nodeX` tagged Docker images, which allows you to always stay up-to-date with our newest versions without having to update your own deployments.\n\n- **Wildcard Support for Safe Directories:** The Dockerfiles now include wildcard support for git’s [safe directories](https://git-scm.com/docs/git-config#Documentation/git-config.txt-safedirectory), making repository handling more seamless, this was a bug when sometimes making use of Hypernode Deploy with Bitbucket Pipelines and Github Actions.\n\n## **Deployment Enhancements**\n\n- **Refined Autoloading Behavior:** The application vendor autoloader is no longer automatically included. This gives developers better control over how dependencies are managed in their projects, and fixing an issue when using Shopware 6. You can make use of the old functionality by running the below command in your deployments:\n\n`DEPLOY_AUTOLOAD_PATH=./vendor/autoload.php hypernode-deploy build`\n\n- **Accurate Branch Naming in CI for Slack notifications**: The correct branch name is now displayed based on the CI runner, ensuring clarity when working with slack notifications.\n\n- **Support for http:cache:warm:up was dropped in Shopware 6.6+** . We have updated our Shopware recipe to reflect these changes for Shopware 6.6 and above.\n\nTo change the new version, please include the latest version of our docker image:\n\n```\nimage: quay.io/hypernode/deploy:latest-php8.3-node20\n```\n\nor pin your version by specifying a specific version:\n\n```\nimage: quay.io/hypernode/deploy:4.2-php8.3-node20\n```"
+    "body": "Cloudnode Deploy v4.2.0 is here with several improvements and refinements to enhance your deployment experience, most feedback coming straight from our users!\n\n## **Improved Docker Image Support**\n\n- **NPM Preinstalled in Docker Builds:** When building a Docker image, NPM is now automatically installed, ensuring a smoother experience when working with Node.js dependencies. This was a known bug in older (below 20) NodeJS versions.\n\n- **New Docker Image Variants:** Added support for `:latest-phpX.X-nodeX` tagged Docker images, which allows you to always stay up-to-date with our newest versions without having to update your own deployments.\n\n- **Wildcard Support for Safe Directories:** The Dockerfiles now include wildcard support for git’s [safe directories](https://git-scm.com/docs/git-config#Documentation/git-config.txt-safedirectory), making repository handling more seamless, this was a bug when sometimes making use of Cloudnode Deploy with Bitbucket Pipelines and Github Actions.\n\n## **Deployment Enhancements**\n\n- **Refined Autoloading Behavior:** The application vendor autoloader is no longer automatically included. This gives developers better control over how dependencies are managed in their projects, and fixing an issue when using Shopware 6. You can make use of the old functionality by running the below command in your deployments:\n\n`DEPLOY_AUTOLOAD_PATH=./vendor/autoload.php cloudnode-deploy build`\n\n- **Accurate Branch Naming in CI for Slack notifications**: The correct branch name is now displayed based on the CI runner, ensuring clarity when working with slack notifications.\n\n- **Support for http:cache:warm:up was dropped in Shopware 6.6+** . We have updated our Shopware recipe to reflect these changes for Shopware 6.6 and above.\n\nTo change the new version, please include the latest version of our docker image:\n\n```\nimage: quay.io/cloudnode/deploy:latest-php8.3-node20\n```\n\nor pin your version by specifying a specific version:\n\n```\nimage: quay.io/cloudnode/deploy:4.2-php8.3-node20\n```"
   },
   {
     "id": "release-10422-zstandard-zstd-compression-is-now-available-on-debian-bookworm",
     "title": "Release 10422: Zstandard (zstd) compression is now available on Debian Bookworm!",
-    "excerpt": "We have rolled out Zstandard (zstd) compression to optimize performance and reduce CPU overhead on your Hypernode. This brings significant performance improvements, especially for Shopware 6 users. This update has been automatically deployed to all Hypernodes. No action is required from your side!",
+    "excerpt": "We have rolled out Zstandard (zstd) compression to optimize performance and reduce CPU overhead on your Cloudnode. This brings significant performance improvements, especially for Shopware 6 users. This update has been automatically deployed to all Cloudnodes. No action is required from your side!",
     "category": "Release",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/release-10422-zstandard-zstd-compression-is-now-available-on-debian-bookworm/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10422-zstandard-zstd-compression-is-now-available-on-debian-bookworm/",
     "publishedAt": "2026-02-14",
-    "body": "We have rolled out Zstandard (zstd) compression to optimize performance and reduce CPU overhead on your Hypernode. This brings significant performance improvements, especially for Shopware 6 users.\n\nThis update has been automatically deployed to all Hypernodes. No action is required from your side!"
+    "body": "We have rolled out Zstandard (zstd) compression to optimize performance and reduce CPU overhead on your Cloudnode. This brings significant performance improvements, especially for Shopware 6 users.\n\nThis update has been automatically deployed to all Cloudnodes. No action is required from your side!"
   },
   {
     "id": "release-10421-improvements-in-memory-handling-in-elasticsearch-on-debian-bookworm",
     "title": "Release 10421: Improvements in Memory-handling in Elasticsearch on Debian Bookworm",
-    "excerpt": "We’re excited to announce that we’re rolling out memory management improvements for ElasticSearch on Debian Bookworm. This improvement is designed to optimize performance and ensure smoother operation. The update will be rolled out automatically to these Hypernodes over the coming weeks. Please note: this change does not impact Debian Buster or OpenSearch.",
+    "excerpt": "We’re excited to announce that we’re rolling out memory management improvements for ElasticSearch on Debian Bookworm. This improvement is designed to optimize performance and ensure smoother operation. The update will be rolled out automatically to these Cloudnodes over the coming weeks. Please note: this change does not impact Debian Buster or OpenSearch.",
     "category": "Release",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/release-10421-improvements-in-memory-handling-in-elasticsearch-on-debian-bookworm/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10421-improvements-in-memory-handling-in-elasticsearch-on-debian-bookworm/",
     "publishedAt": "2026-02-07",
-    "body": "We’re excited to announce that we’re rolling out memory management improvements for ElasticSearch on Debian Bookworm.\n\nThis improvement is designed to optimize performance and ensure smoother operation. The update will be rolled out automatically to these Hypernodes over the coming weeks.\n\nPlease note: this change does not impact Debian Buster or OpenSearch."
+    "body": "We’re excited to announce that we’re rolling out memory management improvements for ElasticSearch on Debian Bookworm.\n\nThis improvement is designed to optimize performance and ensure smoother operation. The update will be rolled out automatically to these Cloudnodes over the coming weeks.\n\nPlease note: this change does not impact Debian Buster or OpenSearch."
   },
   {
     "id": "release-10405-object-storage-for-remotely-storing-files-assets-backups-etc",
     "title": "Release 10405: Object storage for remotely storing files, assets, backups, etc.",
-    "excerpt": "Hypernode Object Storage is now available! You can order a remote storage to store media files, assets, backups, documents, etc. Object storage eliminates redundancy and provides a centralized, scalable solution for storing application assets, session data, and backups. With Object Storage you get: Effortless Data Sharing – Seamless access across all Hypernodes Full Access Control…",
+    "excerpt": "Cloudnode Object Storage is now available! You can order a remote storage to store media files, assets, backups, documents, etc. Object storage eliminates redundancy and provides a centralized, scalable solution for storing application assets, session data, and backups. With Object Storage you get: Effortless Data Sharing – Seamless access across all Cloudnodes Full Access Control…",
     "category": "Release",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/release-10405-object-storage-for-remotely-storing-files-assets-backups-etc/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10405-object-storage-for-remotely-storing-files-assets-backups-etc/",
     "publishedAt": "2026-01-31",
-    "body": "#### **Hypernode Object Storage is now available!**\n\nYou can order a remote storage to store media files, assets, backups, documents, etc.\n\nObject storage eliminates redundancy and provides a centralized, scalable solution for storing application assets, session data, and backups.\n\nWith Object Storage you get:\n\n- Effortless Data Sharing – Seamless access across all Hypernodes\n\n- Full Access Control & Security – Secure and manage your data with ease\n\n- Safe Backup & Monitoring – Ensure reliability with built-in insights\n\nYou can order Object Storage via the CLI ( directly through your Hypernode )\n\n`hypernode-object-storage --help`\n\nIf you need help getting started you can follow this document – [Getting started with Hypernode Object Storage](https://docs.hypernode.com/hypernode-platform/object-storage/getting-started-with-object-storage.html)\n\nNote: An option to order, view, change your Object Storages through our control panel will be available very soon!"
+    "body": "#### **Cloudnode Object Storage is now available!**\n\nYou can order a remote storage to store media files, assets, backups, documents, etc.\n\nObject storage eliminates redundancy and provides a centralized, scalable solution for storing application assets, session data, and backups.\n\nWith Object Storage you get:\n\n- Effortless Data Sharing – Seamless access across all Cloudnodes\n\n- Full Access Control & Security – Secure and manage your data with ease\n\n- Safe Backup & Monitoring – Ensure reliability with built-in insights\n\nYou can order Object Storage via the CLI ( directly through your Cloudnode )\n\n`cloudnode-object-storage --help`\n\nIf you need help getting started you can follow this document – [Getting started with Cloudnode Object Storage](https://docs.cloudnode.com/cloudnode-platform/object-storage/getting-started-with-object-storage.html)\n\nNote: An option to order, view, change your Object Storages through our control panel will be available very soon!"
   },
   {
     "id": "release-10380-improved-logfile-rotation",
     "title": "Release 10380: Improved logfile rotation policy",
-    "excerpt": "We have rolled out an improved logfile rotation policy across all Hypernodes. Logs are now compressed earlier and retained for a longer window, giving you more headroom to investigate incidents without paying a disk-space penalty. No action is required — the new policy is applied automatically on your next log rotation.",
+    "excerpt": "We have rolled out an improved logfile rotation policy across all Cloudnodes. Logs are now compressed earlier and retained for a longer window, giving you more headroom to investigate incidents without paying a disk-space penalty. No action is required — the new policy is applied automatically on your next log rotation.",
     "category": "Release",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/release-10380-improved-logfile-rotation/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10380-improved-logfile-rotation/",
     "publishedAt": "2025-12-19"
   },
   {
@@ -164,16 +164,16 @@
     "excerpt": "We have overhauled the domain management area of the Control Panel. Adding, removing and verifying domains is now a single-page workflow with inline DNS validation, faster certificate provisioning and clearer error messages when records are misconfigured.",
     "category": "Release",
     "topic": "Control panel",
-    "sourceUrl": "https://changelog.hypernode.com/release-10350-domain-management-overhaul-in-the-control-panel/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10350-domain-management-overhaul-in-the-control-panel/",
     "publishedAt": "2025-11-21"
   },
   {
     "id": "release-10312-api-v3-endpoints-for-backup-management",
     "title": "Release 10312: API v3 endpoints for backup management",
-    "excerpt": "The Hypernode API now exposes v3 endpoints for listing, triggering and restoring backups programmatically. The new endpoints support pagination, server-side filtering and webhook callbacks on completion. Existing v2 backup endpoints remain available and will be deprecated no earlier than Q3 2026.",
+    "excerpt": "The Cloudnode API now exposes v3 endpoints for listing, triggering and restoring backups programmatically. The new endpoints support pagination, server-side filtering and webhook callbacks on completion. Existing v2 backup endpoints remain available and will be deprecated no earlier than Q3 2026.",
     "category": "Release",
     "topic": "API",
-    "sourceUrl": "https://changelog.hypernode.com/release-10312-api-v3-endpoints-for-backup-management/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10312-api-v3-endpoints-for-backup-management/",
     "publishedAt": "2025-10-31"
   },
   {
@@ -182,43 +182,43 @@
     "excerpt": "We have shortened the cluster failover detection window and improved the way persistent connections are drained during a planned switchover. In our internal benchmarks, recovery time during a primary-node outage improved by roughly 35%, and long-running database connections are now reattached without manual intervention.",
     "category": "Update",
     "topic": "Cluster",
-    "sourceUrl": "https://changelog.hypernode.com/release-10301-cluster-failover-improvements/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10301-cluster-failover-improvements/",
     "publishedAt": "2025-10-10"
   },
   {
     "id": "release-10268-faster-autoscaling-response-for-traffic-spikes",
     "title": "Release 10268: Faster autoscaling response for traffic spikes",
-    "excerpt": "Autoscaling on Hypernode now reacts to sudden traffic spikes within seconds rather than minutes. The new responder samples request rates more frequently and pre-warms additional capacity when sustained growth is detected, reducing the probability of dropped requests during flash-sale events.",
+    "excerpt": "Autoscaling on Cloudnode now reacts to sudden traffic spikes within seconds rather than minutes. The new responder samples request rates more frequently and pre-warms additional capacity when sustained growth is detected, reducing the probability of dropped requests during flash-sale events.",
     "category": "Update",
     "topic": "Autoscaling",
-    "sourceUrl": "https://changelog.hypernode.com/release-10268-faster-autoscaling-response-for-traffic-spikes/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10268-faster-autoscaling-response-for-traffic-spikes/",
     "publishedAt": "2025-09-19"
   },
   {
-    "id": "release-10240-php-8-3-now-default-for-new-hypernodes",
-    "title": "Release 10240: PHP 8.3 now the default for new Hypernodes",
-    "excerpt": "PHP 8.3 is now the default runtime for newly provisioned Hypernodes. Existing Hypernodes are unaffected and can continue to opt in via hypernode-systemctl settings php_version 8.3 when ready. PHP 8.2 remains fully supported as a long-term option.",
+    "id": "release-10240-php-8-3-now-default-for-new-cloudnodes",
+    "title": "Release 10240: PHP 8.3 now the default for new Cloudnodes",
+    "excerpt": "PHP 8.3 is now the default runtime for newly provisioned Cloudnodes. Existing Cloudnodes are unaffected and can continue to opt in via cloudnode-systemctl settings php_version 8.3 when ready. PHP 8.2 remains fully supported as a long-term option.",
     "category": "Update",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/release-10240-php-8-3-now-default-for-new-hypernodes/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10240-php-8-3-now-default-for-new-cloudnodes/",
     "publishedAt": "2025-08-15"
   },
   {
-    "id": "hypernode-deploy-v3-8-0",
-    "title": "Hypernode Deploy v3.8.0",
-    "excerpt": "Hypernode Deploy v3.8.0 introduces reusable pipeline templates, a richer dry-run output and faster artefact uploads. Pipeline templates let teams share a vetted deployment recipe across multiple repositories and override only the parts that differ. As always, customers using the :latest image tag will pick up this release on their next deploy.",
+    "id": "cloudnode-deploy-v3-8-0",
+    "title": "Cloudnode Deploy v3.8.0",
+    "excerpt": "Cloudnode Deploy v3.8.0 introduces reusable pipeline templates, a richer dry-run output and faster artefact uploads. Pipeline templates let teams share a vetted deployment recipe across multiple repositories and override only the parts that differ. As always, customers using the :latest image tag will pick up this release on their next deploy.",
     "category": "Release",
-    "topic": "Hypernode Deploy",
-    "sourceUrl": "https://changelog.hypernode.com/hypernode-deploy-v3-8-0/",
+    "topic": "Cloudnode Deploy",
+    "sourceUrl": "https://changelog.cloudnode.com/cloudnode-deploy-v3-8-0/",
     "publishedAt": "2025-07-12"
   },
   {
-    "id": "release-10220-slow-query-analyzer-in-hypernode-insights",
-    "title": "Release 10220: Slow query analyzer in Hypernode Insights",
-    "excerpt": "Hypernode Insights now includes a slow-query analyzer that surfaces the heaviest database queries over the last 24 hours, grouped by template, with a one-click jump to the originating route in your application logs. The analyzer is available on all production Hypernodes at no additional cost.",
+    "id": "release-10220-slow-query-analyzer-in-cloudnode-insights",
+    "title": "Release 10220: Slow query analyzer in Cloudnode Insights",
+    "excerpt": "Cloudnode Insights now includes a slow-query analyzer that surfaces the heaviest database queries over the last 24 hours, grouped by template, with a one-click jump to the originating route in your application logs. The analyzer is available on all production Cloudnodes at no additional cost.",
     "category": "Release",
     "topic": "Insights",
-    "sourceUrl": "https://changelog.hypernode.com/release-10220-slow-query-analyzer-in-hypernode-insights/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10220-slow-query-analyzer-in-cloudnode-insights/",
     "publishedAt": "2025-06-06"
   },
   {
@@ -227,79 +227,79 @@
     "excerpt": "Agencies managing multiple Magento storefronts can now trigger a MageReport scan across their entire portfolio in a single action. Results are aggregated into a per-agency dashboard with severity-based filtering and CSV export, making it easier to triage findings across customers in one sitting.",
     "category": "Update",
     "topic": "MageReport",
-    "sourceUrl": "https://changelog.hypernode.com/magereport-bulk-scanning-now-available/",
+    "sourceUrl": "https://changelog.cloudnode.com/magereport-bulk-scanning-now-available/",
     "publishedAt": "2025-05-23"
   },
   {
     "id": "release-10180-redis-7-4-support-added",
     "title": "Release 10180: Redis 7.4 support added",
-    "excerpt": "We have added support for Redis 7.4 across the Hypernode platform. The 7.4 line ships with improved memory accounting, faster cluster bus messaging and broader observability counters. Switching is opt-in via hypernode-systemctl settings redis_version 7.4.",
+    "excerpt": "We have added support for Redis 7.4 across the Cloudnode platform. The 7.4 line ships with improved memory accounting, faster cluster bus messaging and broader observability counters. Switching is opt-in via cloudnode-systemctl settings redis_version 7.4.",
     "category": "Release",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/release-10180-redis-7-4-support-added/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10180-redis-7-4-support-added/",
     "publishedAt": "2025-04-18"
   },
   {
     "id": "release-10120-zero-downtime-maintenance-windows",
-    "title": "Release 10120: Zero-downtime maintenance windows for cluster Hypernodes",
-    "excerpt": "Routine maintenance on cluster Hypernodes is now applied with zero downtime. Each node in the cluster is drained, patched and re-introduced into rotation independently, so customer traffic is never served from a node mid-restart. Customers will receive a courtesy notification when their cluster is scheduled for a maintenance pass.",
+    "title": "Release 10120: Zero-downtime maintenance windows for cluster Cloudnodes",
+    "excerpt": "Routine maintenance on cluster Cloudnodes is now applied with zero downtime. Each node in the cluster is drained, patched and re-introduced into rotation independently, so customer traffic is never served from a node mid-restart. Customers will receive a courtesy notification when their cluster is scheduled for a maintenance pass.",
     "category": "Update",
     "topic": "Cluster",
-    "sourceUrl": "https://changelog.hypernode.com/release-10120-zero-downtime-maintenance-windows/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-10120-zero-downtime-maintenance-windows/",
     "publishedAt": "2025-03-14"
   },
   {
-    "id": "release-9980-php-8-2-now-default-for-new-hypernodes",
-    "title": "Release 9980: PHP 8.2 now the default for new Hypernodes",
-    "excerpt": "PHP 8.2 has become the default runtime for newly provisioned Hypernodes. Existing Hypernodes continue to run their pinned version and can opt in with hypernode-systemctl settings php_version 8.2 when ready. PHP 8.1 remains supported as a long-term option for customers who have not yet validated 8.2 against their application.",
+    "id": "release-9980-php-8-2-now-default-for-new-cloudnodes",
+    "title": "Release 9980: PHP 8.2 now the default for new Cloudnodes",
+    "excerpt": "PHP 8.2 has become the default runtime for newly provisioned Cloudnodes. Existing Cloudnodes continue to run their pinned version and can opt in with cloudnode-systemctl settings php_version 8.2 when ready. PHP 8.1 remains supported as a long-term option for customers who have not yet validated 8.2 against their application.",
     "category": "Release",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/release-9980-php-8-2-now-default-for-new-hypernodes/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-9980-php-8-2-now-default-for-new-cloudnodes/",
     "publishedAt": "2024-11-22"
   },
   {
-    "id": "hypernode-deploy-v3-0-0",
-    "title": "Hypernode Deploy v3.0.0",
-    "excerpt": "Hypernode Deploy v3.0.0 introduces a rewritten task runner, native support for multi-stage Docker builds and the first iteration of pipeline hooks. The v3 line is backwards compatible with v2 configuration files; a migration guide is available in the documentation for teams that want to adopt the new features.",
+    "id": "cloudnode-deploy-v3-0-0",
+    "title": "Cloudnode Deploy v3.0.0",
+    "excerpt": "Cloudnode Deploy v3.0.0 introduces a rewritten task runner, native support for multi-stage Docker builds and the first iteration of pipeline hooks. The v3 line is backwards compatible with v2 configuration files; a migration guide is available in the documentation for teams that want to adopt the new features.",
     "category": "Release",
-    "topic": "Hypernode Deploy",
-    "sourceUrl": "https://changelog.hypernode.com/hypernode-deploy-v3-0-0/",
+    "topic": "Cloudnode Deploy",
+    "sourceUrl": "https://changelog.cloudnode.com/cloudnode-deploy-v3-0-0/",
     "publishedAt": "2024-09-30"
   },
   {
-    "id": "hypernode-insights-now-available-in-the-control-panel",
-    "title": "Hypernode Insights is now available in the Control Panel",
-    "excerpt": "The first release of Hypernode Insights is now available to all customers from the Control Panel. Insights surfaces traffic, response-time and error trends on a single page and lets you drill into individual URLs to investigate slow endpoints. More detailed dashboards will follow in subsequent releases.",
+    "id": "cloudnode-insights-now-available-in-the-control-panel",
+    "title": "Cloudnode Insights is now available in the Control Panel",
+    "excerpt": "The first release of Cloudnode Insights is now available to all customers from the Control Panel. Insights surfaces traffic, response-time and error trends on a single page and lets you drill into individual URLs to investigate slow endpoints. More detailed dashboards will follow in subsequent releases.",
     "category": "Release",
     "topic": "Insights",
-    "sourceUrl": "https://changelog.hypernode.com/hypernode-insights-now-available-in-the-control-panel/",
+    "sourceUrl": "https://changelog.cloudnode.com/cloudnode-insights-now-available-in-the-control-panel/",
     "publishedAt": "2024-07-18"
   },
   {
     "id": "release-9820-magento-2-4-7-support",
     "title": "Release 9820: Magento 2.4.7 support across the platform",
-    "excerpt": "Magento 2.4.7 is now fully supported on Hypernode, including managed versions of Composer 2, OpenSearch 2.x and the new image processing pipeline. Customers upgrading from 2.4.6 can follow the standard upgrade procedure; no Hypernode-specific changes are required.",
+    "excerpt": "Magento 2.4.7 is now fully supported on Cloudnode, including managed versions of Composer 2, OpenSearch 2.x and the new image processing pipeline. Customers upgrading from 2.4.6 can follow the standard upgrade procedure; no Cloudnode-specific changes are required.",
     "category": "Release",
     "topic": "Platform",
-    "sourceUrl": "https://changelog.hypernode.com/release-9820-magento-2-4-7-support/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-9820-magento-2-4-7-support/",
     "publishedAt": "2024-05-09"
   },
   {
-    "id": "cluster-hypernode-generally-available",
-    "title": "Cluster Hypernode is now generally available",
-    "excerpt": "After an extended early-access period, Cluster Hypernode is now generally available. Cluster Hypernodes spread your application across multiple Hypernodes with a shared database and storage tier, giving you horizontal scaling and high availability without re-architecting your shop. Pricing and configuration details are available on the Plans & prices page.",
+    "id": "cluster-cloudnode-generally-available",
+    "title": "Cluster Cloudnode is now generally available",
+    "excerpt": "After an extended early-access period, Cluster Cloudnode is now generally available. Cluster Cloudnodes spread your application across multiple Cloudnodes with a shared database and storage tier, giving you horizontal scaling and high availability without re-architecting your shop. Pricing and configuration details are available on the Plans & prices page.",
     "category": "Release",
     "topic": "Cluster",
-    "sourceUrl": "https://changelog.hypernode.com/cluster-hypernode-generally-available/",
+    "sourceUrl": "https://changelog.cloudnode.com/cluster-cloudnode-generally-available/",
     "publishedAt": "2024-03-21"
   },
   {
     "id": "release-9700-redesigned-control-panel-navigation",
     "title": "Release 9700: Redesigned Control Panel navigation",
-    "excerpt": "We have rolled out a redesigned navigation in the Control Panel. The new layout groups related actions together, keeps the most-used screens one click away on every page and includes a global keyboard shortcut palette for quickly jumping between Hypernodes.",
+    "excerpt": "We have rolled out a redesigned navigation in the Control Panel. The new layout groups related actions together, keeps the most-used screens one click away on every page and includes a global keyboard shortcut palette for quickly jumping between Cloudnodes.",
     "category": "Update",
     "topic": "Control panel",
-    "sourceUrl": "https://changelog.hypernode.com/release-9700-redesigned-control-panel-navigation/",
+    "sourceUrl": "https://changelog.cloudnode.com/release-9700-redesigned-control-panel-navigation/",
     "publishedAt": "2024-02-14"
   }
 ]
